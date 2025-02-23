@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import school from "@/public/assets/school.jpg";
-import college from "@/public/assets/college.jpg";
+import school from "../../../public/assets/school.jpg";
+import college from "../../../public/assets/college.jpg";
 import { motion } from "framer-motion";
 
 const Background = () => {
