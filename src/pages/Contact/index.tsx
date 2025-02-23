@@ -3,12 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
-import { AiOutlineMail } from "react-icons/ai";
-import { BsFillPersonLinesFill } from "react-icons/bs";
-import { FaLinkedinIn } from "react-icons/fa";
+// import { AiOutlineMail } from "react-icons/ai";
+// import { BsFillPersonLinesFill } from "react-icons/bs";
+// import { FaLinkedinIn } from "react-icons/fa";
 import { HiOutlineChevronDoubleUp } from "react-icons/hi";
 import ContactImage from "../../../public/assets/contact.jpg";
-import { motion, useTime } from "framer-motion";
+import { motion } from "framer-motion";
 const Contact = () => {
   const variantleft = {
     hidden: { opacity: 0, x: -100 },
@@ -28,7 +28,8 @@ const Contact = () => {
   const [subject, setSubject] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [response, setResponse] = useState<string>("");
-  const handleSendMessage = async (e) => {
+
+  const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const templateParams = {
@@ -50,7 +51,7 @@ const Contact = () => {
       } else {
         setResponse("Failed to send email");
       }
-    } catch (err) {
+    } catch {
       setResponse("Failed to send email");
     }
   };
