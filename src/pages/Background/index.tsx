@@ -32,7 +32,7 @@ const Background = () => {
       type: "Higher Secondary",
       img: school,
       school: "Kendriya Vidyalaya Santragachi, Howrah, West Bengal",
-      place: "Kovilpatti, Tamil Nadu",
+      place: "Howrah, West Bengal",
       batch: "2019-2020 Passed out",
       group: "Computer Science",
       percentage: "92%",
@@ -120,7 +120,7 @@ const Background = () => {
               interfaces with approval forms for the business internal
               environment and the flow of operation using process model.
             </motion.p>
-            <motion.p className="mb-4">Work Experience: 6 months</motion.p>
+            <motion.p className="mb-4">Work Experience: --</motion.p>
           </motion.div>
         </motion.div>
       </div>
