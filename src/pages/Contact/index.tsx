@@ -7,7 +7,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { FaLinkedinIn } from "react-icons/fa";
 import { HiOutlineChevronDoubleUp } from "react-icons/hi";
-import ContactImage from "@/public/assets/contact.jpg";
+import ContactImage from "../../../public/assets/contact.jpg";
 import { motion, useTime } from "framer-motion";
 const Contact = () => {
   const variantleft = {

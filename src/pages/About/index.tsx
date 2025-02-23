@@ -2,10 +2,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Profile from "@/public/assets/profile_pic.png";
+import Profile from "../../../public/assets/profile_pic.png";
 import { AiOutlineDownload } from "react-icons/ai";
 import Data from "@/pages/data/Data.json";
-import Resumee from "@/public/assets/weather.jpg";
+import Resumee from "../../../public/assets/weather.jpg";
 
 const About = () => {
   const variantleft = {
