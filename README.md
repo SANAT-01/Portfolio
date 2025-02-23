@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# My Portfolio
 
-## Getting Started
+Welcome to my portfolio! This website was built with React and Framer Motion, and showcases my skills and projects as a web developer. You can visit the live website [here](https://vs-portfolio.pages.dev/).
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Responsive design
+- Smooth animations and transitions using Framer Motion
+- Project showcase with images, descriptions, and links
+- Skills section with icons and descriptions
+- Contact form with validation and email sending functionality
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This project was built with the following technologies:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- React
+- Framer Motion
+- EmailJS
+- FontAwesome
+- Tailwind CSS
+- @react-hook/window-size
+- framer-motion
+- react-dom
+- react-fast-marquee
+- react-globe.gl
+- react-intersection-observer
+- react-particles
+- react-router-dom
+- react-scroll
+- react-tsparticles
+- tsparticles
 
-## Learn More
+Dev Dependencies:
 
-To learn more about Next.js, take a look at the following resources:
+- dotenv
+- autoprefixer
+- postcss
+- tailwindcss
+- vite
+- @types/react
+- @types/react-dom
+- @vitejs/plugin-react
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Credits
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project was created by [Valeriu Secrieru](https://www.github.com/valeriusec) using the following technologies:
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [React](https://reactjs.org/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [EmailJS](https://www.emailjs.com/)
+- [FontAwesome](https://fontawesome.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- and other open-source libraries and tools.
