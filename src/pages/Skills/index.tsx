@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import Data from "@/pages/data/Data.json";
 import { motion } from "framer-motion";
+import BounceComponent from "@/components/bounce";
 
 const Skills = () => {
   const itemVariants = {
@@ -21,9 +22,9 @@ const Skills = () => {
           initial="hidden"
           animate="show"
           transition={{ duration: 1 }}
-          className="text-xl tracking-widest uppercase text-green-300"
+          className="text-xl tracking-widest  text-green-300"
         >
-          Skills
+          <BounceComponent title={"Skills"} />
         </motion.p>
         <motion.h2
           variants={itemVariants}

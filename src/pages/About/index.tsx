@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 // import Profile from "../../../public/assets/profile_pic.png";
 import { AiOutlineDownload } from "react-icons/ai";
 import Data from "@/pages/data/Data.json";
-// import Resumee from "../../../public/assets/weather.jpg";
+import BounceComponent from "@/components/bounce";
 
 const About = () => {
   const variantleft = {
@@ -23,7 +23,7 @@ const About = () => {
   return (
     <div
       id="about"
-      className=" bg-[rgb(11,11,11)] w-full md:h-screen p-2 flex items-center py-16"
+      className=" bg-[rgb(11,11,11)] w-full md:h-screen p-2 flex items-center py-16 text-white"
     >
       <div className="max-w-[1240px] m-auto md:grid grid-cols-3 gap-8">
         <motion.div
@@ -33,9 +33,7 @@ const About = () => {
           transition={{ duration: 1 }}
           className={`col-span-2 `}
         >
-          <p className="uppercase text-xl tracking-widest text-green-300">
-            About
-          </p>
+          <BounceComponent title={"About"} />
           <h2 className="py-4">Who am I</h2>
           <p className="py-2 text-justify text-gray-300">
             {Data.AboutDetails.intro}

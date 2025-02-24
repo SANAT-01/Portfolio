@@ -3,6 +3,7 @@ import React from "react";
 import ProjectItem from "./ProjectItem";
 import Data from "@/pages/data/Data.json";
 import { motion } from "framer-motion";
+import BounceComponent from "@/components/bounce";
 
 const Projects = () => {
   const itemVariants = {
@@ -21,9 +22,9 @@ const Projects = () => {
           initial="hidden"
           animate="show"
           transition={{ duration: 1 }}
-          className="text-xl tracking-widest uppercase text-green-300"
+          className="text-xl tracking-widest text-green-300"
         >
-          Projects
+          <BounceComponent title={"Projects"} />
         </motion.p>
         <motion.h2
           variants={variants}

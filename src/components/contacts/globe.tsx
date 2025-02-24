@@ -36,7 +36,7 @@ const Page = () => {
       city: "Kolkata",
       lat: 22.5726,
       lng: 88.3639,
-      altitude: 0.1,
+      altitude: 0.5,
       color: "#ff0000",
     },
   ];
@@ -54,6 +54,8 @@ const Page = () => {
         pointsData={myData}
         pointAltitude="altitude"
         pointColor="color"
+        width={400}
+        height={400}
       />
     </div>
   );
