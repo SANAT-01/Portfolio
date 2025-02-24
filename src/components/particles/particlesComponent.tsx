@@ -1,5 +1,5 @@
 "use client";
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import Particles from "react-particles";
 import { loadFull } from "tsparticles";
 import { Engine } from "tsparticles-engine";
@@ -11,12 +11,12 @@ const ParticlesComponent = (props: {
 }) => {
   const { particlesOptions, className, id } = props;
 
-  let isInitialized = false;
+  const isInitialized = useRef(false);
 
   const particlesInit = useCallback(async (engine: Engine) => {
-    if (!isInitialized) {
+    if (!isInitialized.current) {
       await loadFull(engine);
-      isInitialized = true;
+      isInitialized.current = true;
     }
   }, []);
 
