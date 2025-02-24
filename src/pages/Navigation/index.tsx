@@ -7,11 +7,12 @@ import { BiSolidContact } from "react-icons/bi";
 import { BsFillInfoCircleFill } from "react-icons/bs";
 import { GiSkills } from "react-icons/gi";
 import { IoSchoolSharp } from "react-icons/io5";
+import { useRouter } from "next/navigation";
 
 const NavBar = () => {
   const [nav, setNav] = useState(false);
   const [shadow, setShadow] = useState(false);
-
+  const router = useRouter();
   const handleNav = () => {
     setNav((prev) => !prev);
   };
@@ -58,11 +59,17 @@ const NavBar = () => {
           <ul className=" hidden md:flex ">
             {links.map((link) => {
               return (
-                <Link key={link.title} href={link.link}>
+                <div
+                  key={link.title}
+                  onClick={() => {
+                    router.push(link.link);
+                  }}
+                  className="cursor-pointer"
+                >
                   <li className="ml-10 text-sm uppercase font-bold hover:text-white">
                     {link.title}
                   </li>
-                </Link>
+                </div>
               );
             })}
           </ul>

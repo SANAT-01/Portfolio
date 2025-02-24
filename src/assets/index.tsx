@@ -1,3 +1,3 @@
 import globeTexture from "./globe.svg";
-
-export { globeTexture };
+import githubLogo from "./github.png";
+export { globeTexture, githubLogo };

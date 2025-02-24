@@ -1,4 +1,5 @@
 import { m, LazyMotion, domAnimation } from "framer-motion";
+import BounceComponent from "../bounce";
 
 const SectionTitle = (props: { title: string; subtitle: string }) => {
   const { title, subtitle } = props;
@@ -26,16 +27,7 @@ const SectionTitle = (props: { title: string; subtitle: string }) => {
             className="tracking-wider text-7xl sm:text-8xl md:text-9xl"
             style={{ fontFamily: "Morganite Black" }}
           >
-            {title.split("").map((char, index) => {
-              if (char === " ") {
-                return " ";
-              }
-              return (
-                <span key={index} className="bounce">
-                  {char}
-                </span>
-              );
-            })}
+            <BounceComponent title={title} />
           </h2>
         </m.div>
       </LazyMotion>

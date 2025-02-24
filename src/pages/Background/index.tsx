@@ -4,6 +4,7 @@ import React from "react";
 import school from "../../../public/assets/school.jpg";
 import college from "../../../public/assets/college.jpg";
 import { motion } from "framer-motion";
+import BounceComponent from "@/components/bounce";
 
 const Background = () => {
   const itemVariantsLeft = {
@@ -46,9 +47,9 @@ const Background = () => {
           initial="hidden"
           animate="show"
           transition={{ duration: 1 }}
-          className="text-xl tracking-widest uppercase text-green-300"
+          className="text-xl tracking-widest text-green-300"
         >
-          Education & Experience
+          <BounceComponent title={"Education"} />
         </motion.p>
         <div className="grid grid-cols-1 px-[10%] gap-4 py-8">
           {educationData.map((item, index) => {

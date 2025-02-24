@@ -13,7 +13,7 @@ const Contact = () => {
     >
       <div className="px-10 w-full md:w-[90%] min-h-[800px] flex flex-col ">
         <div className="w-full">
-          <SectionTitle title="CONTACT" subtitle="Get in touch" />
+          <SectionTitle title="Contack" subtitle="Get in touch" />
         </div>
         <div className="w-full flex justify-center items-center">
           <LazyMotion features={domAnimation} strict>
@@ -29,12 +29,14 @@ const Contact = () => {
           </LazyMotion>
         </div>
       </div>
-      <GlobeComponent />
+      <div className="w-full bg-black flex justify-center mt-10">
+        <GlobeComponent />
+      </div>
       <div className="w-full flex flex-col">
         <SocialLinks />
         <div className="bg-grayscale-950 flex justify-center pb-4 text-grayscale-400">
-          <span>
-            Created by <em>Valeriu Secrieru</em>
+          <span className="text-white">
+            Created by <em>Sanat Tudu</em>
           </span>
         </div>
       </div>

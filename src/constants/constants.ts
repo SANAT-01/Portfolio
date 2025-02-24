@@ -9,6 +9,8 @@ import {
 import {
   faReact,
   faGithub,
+  faLinkedinIn,
+  faInstagram,
   faYoutube,
   faTiktok,
 } from "@fortawesome/free-brands-svg-icons";
@@ -28,6 +30,8 @@ const icons = {
   faReact,
   faGithub,
   faYoutube,
+  faLinkedinIn,
+  faInstagram,
   faTiktok,
 };
 
