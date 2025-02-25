@@ -5,15 +5,15 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import Sidebar from "./sidebar";
 
 const NavBar = () => {
-  const [shadow, setShadow] = useState(true);
+  const [navBar, setNavBar] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
     const handleShadow = () => {
       if (window.scrollY >= 500) {
-        setShadow(false);
+        setNavBar(false);
       } else {
-        setShadow(true);
+        setNavBar(true);
       }
     };
     window.addEventListener("scroll", handleShadow);
@@ -42,14 +42,12 @@ const NavBar = () => {
 
   return (
     <div
-      className={
-        shadow
-          ? " bg-green-950 fixed w-full h-20 l z-[100] ease-in-out duration-700 hidden md:flex"
-          : "fixed w-full h-20 z-[100] "
-      }
+      className={`fixed w-full h-20 z-[100]  ${
+        navBar ? "ease-in-out duration-1000 hidden md:flex" : ""
+      }`}
     >
       <motion.div style={{ scaleX }} className="h-2 bg-white" />
-      {shadow ? (
+      {navBar ? (
         <div className="flex justify-end md:justify-center items-center w-full h-full px-2">
           <div className="text-green-300">
             <ul className=" hidden md:flex ">

@@ -43,13 +43,13 @@ const Sidebar = () => {
     >
       <motion.div
         variants={variants}
-        className={cn("z-40 inset-0 bg-white w-48 md:w-96", {
+        className={cn("z-40 inset-0 bg-white w-full md:w-96", {
           fixed: isLoaded,
-          hidden: !isSidebarOpened,
         })}
       >
-        <Links handleToggle={handleToggle} />
+        <Links handleToggle={handleToggle} isSidebarOpened={isSidebarOpened} />
       </motion.div>
+
       <ToggleButton handleToggle={handleToggle} />
     </motion.div>
   );

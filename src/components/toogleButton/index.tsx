@@ -15,7 +15,7 @@ export const ToggleButton = ({ handleToggle }: ToggleButtonProps) => {
       <svg width="22" height="22" viewBox="0 0 22 22">
         <motion.path
           strokeWidth="3"
-          stroke="black"
+          stroke={"black"}
           strokeLinecap="round"
           variants={{
             closed: { d: "M 2 2.5 L 20 2.5" },
@@ -24,7 +24,7 @@ export const ToggleButton = ({ handleToggle }: ToggleButtonProps) => {
         />
         <motion.path
           strokeWidth="3"
-          stroke="black"
+          stroke={"black"}
           strokeLinecap="round"
           d="M 2 9.423 L 20 9.423"
           variants={{
@@ -34,7 +34,7 @@ export const ToggleButton = ({ handleToggle }: ToggleButtonProps) => {
         />
         <motion.path
           strokeWidth="3"
-          stroke="black"
+          stroke={"black"}
           strokeLinecap="round"
           variants={{
             closed: { d: "M 2 16.346 L 20 16.346" },

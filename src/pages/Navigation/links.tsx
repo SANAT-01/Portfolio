@@ -1,9 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import SocialLinks from "../Contact/socialLinks";
 
 interface LinksProps {
   handleToggle: () => void;
+  isSidebarOpened: boolean;
 }
 
 const variants = {
@@ -59,7 +61,7 @@ const linkVariants = {
   },
 };
 
-const Links = ({ handleToggle }: LinksProps) => {
+const Links = ({ handleToggle, isSidebarOpened }: LinksProps) => {
   const router = useRouter();
 
   return (
@@ -69,28 +71,30 @@ const Links = ({ handleToggle }: LinksProps) => {
         "absolute w-full h-full flex flex-col items-center justify-center gap-5"
       }
     >
-      {linksList.map((item) => (
-        <>
-          <div
-            key={item.value}
-            className="text-xl py-4 md:text-4xl hover:scale-110 hover:transition-transform w-full flex justify-center cursor-pointer bg-green-400"
-            onClick={() => {
-              router.push(`#${item.value}`);
-              handleToggle();
-            }}
-          >
-            <motion.span
-              variants={linkVariants}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{
-                scale: 0.95,
+      {isSidebarOpened &&
+        linksList.map((item) => (
+          <>
+            <div
+              key={item.value}
+              className="text-xl py-4 md:text-4xl hover:scale-110 hover:transition-transform w-full flex justify-center cursor-pointer bg-green-400"
+              onClick={() => {
+                router.push(`#${item.value}`);
+                handleToggle();
               }}
             >
-              {item.label}
-            </motion.span>
-          </div>
-        </>
-      ))}
+              <motion.span
+                variants={linkVariants}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{
+                  scale: 0.95,
+                }}
+              >
+                {item.label}
+              </motion.span>
+            </div>
+          </>
+        ))}
+      {isSidebarOpened && <SocialLinks />}
     </motion.div>
   );
 };
