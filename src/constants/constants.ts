@@ -17,9 +17,9 @@ import {
 
 library.add(faX, faBars, faWindowRestore, faBagShopping, faDiceD6);
 
-import { globeTexture } from "@/assets/index";
+import { globeTexture, darkEarth } from "@/assets/index";
 
-const media = { globeTexture };
+const media = { globeTexture, darkEarth };
 
 const icons = {
   faBars,
