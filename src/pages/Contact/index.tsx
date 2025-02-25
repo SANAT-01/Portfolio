@@ -1,8 +1,9 @@
-import ContactForm from "@/components/contacts/contactForm";
-import ContactServices from "@/components/contacts/contactService";
-import GlobeComponent from "@/components/contacts/globe";
-import SectionTitle from "@/components/contacts/sectionTitle";
-import SocialLinks from "@/components/contacts/socialLinks";
+"use client";
+import ContactForm from "@/pages/Contact/contactForm";
+import ContactServices from "@/pages/Contact/contactService";
+import GlobeComponent from "@/components/globe";
+import SectionTitle from "@/pages/Contact/sectionTitle";
+import SocialLinks from "@/pages/Contact/socialLinks";
 import { m, LazyMotion, domAnimation } from "framer-motion";
 
 const Contact = () => {
@@ -13,7 +14,7 @@ const Contact = () => {
     >
       <div className="px-10 w-full md:w-[90%] min-h-[800px] flex flex-col ">
         <div className="w-full">
-          <SectionTitle title="Contack" subtitle="Get in touch" />
+          <SectionTitle title="Contact" subtitle="Get in touch" />
         </div>
         <div className="w-full flex justify-center items-center">
           <LazyMotion features={domAnimation} strict>

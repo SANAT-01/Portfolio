@@ -1,22 +1,28 @@
 "use client";
 
+import { cn } from "@/utils/cn";
+
 interface BounceProps {
   title: string;
+  className?: string;
 }
 
-const BounceComponent = ({ title }: BounceProps) => {
+const BounceComponent = ({ title, className }: BounceProps) => {
   return (
     <>
       <div
-        className="tracking-wider text-7xl sm:text-8xl md:text-9xl text-green-300 cursor-pointer"
+        className="tracking-wider text-7xl sm:text-8xl md:text-9xl  cursor-pointer"
         style={{ fontFamily: "Morganite Black" }}
       >
-        {title.split("").map((char, index) => {
+        {title?.split("").map((char, index) => {
           if (char === " ") {
             return " ";
           }
           return (
-            <span key={index} className="bounce">
+            <span
+              key={index}
+              className={cn("bounce text-6xl text-green-300", className)}
+            >
               {char}
             </span>
           );

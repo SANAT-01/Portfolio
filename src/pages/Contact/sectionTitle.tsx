@@ -1,5 +1,5 @@
 import { m, LazyMotion, domAnimation } from "framer-motion";
-import BounceComponent from "../bounce";
+import BounceComponent from "../../components/bounce";
 
 const SectionTitle = (props: { title: string; subtitle: string }) => {
   const { title, subtitle } = props;
