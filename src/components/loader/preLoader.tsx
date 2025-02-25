@@ -25,8 +25,7 @@ const PreloadMedia: React.FC<PreloadMediaProps> = ({ images, children }) => {
     images.forEach((imageSrc) => {
       const img = new window.Image();
       img.src = imageSrc;
-      onLoad();
-      // img.onload = onLoad;
+      img.onload = onLoad;
     });
   }, [images]);
 

@@ -1,3 +1,4 @@
 import globeTexture from "./globe.svg";
-import githubLogo from "./github.png";
-export { globeTexture, githubLogo };
+import darkEarth from "./earth-dark.jpg";
+
+export { globeTexture, darkEarth };

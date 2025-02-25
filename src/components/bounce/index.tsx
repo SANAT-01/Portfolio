@@ -1,11 +1,7 @@
 "use client";
 
 import { cn } from "@/utils/cn";
-
-interface BounceProps {
-  title: string;
-  className?: string;
-}
+import { BounceProps } from "@/types/bounce";
 
 const BounceComponent = ({ title, className }: BounceProps) => {
   return (

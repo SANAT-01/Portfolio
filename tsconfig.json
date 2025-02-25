@@ -23,7 +23,7 @@
       "@/app/*": ["app/*"],
       "@/pages/*": ["pages/*"],
       // "@/public/*": ["public/*"],
-      "@types/*": ["types/*"],
+      "@/types/*": ["types/*"],
       "@/components/*": ["components/*"],
       "@/utils/*": ["utils/*"],
       "@/constants/*": ["constants/*"],
