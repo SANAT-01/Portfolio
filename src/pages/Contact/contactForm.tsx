@@ -98,7 +98,7 @@ const ContactForm = () => {
               required
             ></textarea>
           </div>
-          <div className="w-full flex justify-center pb-5">
+          <div className="w-full flex justify-center">
             <input
               className="w-[100px] h-[50px] bg-primary-600 rounded-xl cursor-pointer hover:bg-primary-700"
               type="submit"

@@ -24,7 +24,7 @@ const Page = () => {
   ];
 
   return (
-    <div className="cursor-move mx-10 my-10 px-10">
+    <div className="cursor-move my-10">
       <Globe
         hexPolygonsData={globeJson.features as GeoFeature[]}
         hexPolygonColor={(geometry: object) => {
@@ -36,7 +36,7 @@ const Page = () => {
         pointsData={myData}
         pointAltitude="altitude"
         pointColor="color"
-        width={400}
+        width={500}
         height={400}
       />
     </div>
