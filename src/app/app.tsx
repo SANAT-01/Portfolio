@@ -9,17 +9,15 @@ import Navigation from "@/pages/Navigation";
 
 const App = () => {
   return (
-    <>
-      <div className="">
-        <Navigation />
-        <Main />
-        <About />
-        <Skills />
-        <Background />
-        <Projects />
-        <Contact />
-      </div>
-    </>
+    <div className="w-full h-full">
+      <Navigation />
+      <Main />
+      <About />
+      <Skills />
+      <Background />
+      <Projects />
+      <Contact />
+    </div>
   );
 };
 
