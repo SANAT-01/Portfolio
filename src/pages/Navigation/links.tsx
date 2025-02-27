@@ -72,13 +72,13 @@ const Links = ({ handleToggle, isSidebarOpened }: LinksProps) => {
       }
     >
       {isSidebarOpened &&
-        linksList.map((item) => (
+        linksList?.map((item) => (
           <>
             <div
-              key={item.value}
+              key={item?.value}
               className="text-xl py-4 md:text-4xl hover:scale-110 hover:transition-transform w-full flex justify-center cursor-pointer bg-green-400"
               onClick={() => {
-                router.push(`#${item.value}`);
+                router.push(`#${item?.value}`);
                 handleToggle();
               }}
             >
@@ -89,7 +89,7 @@ const Links = ({ handleToggle, isSidebarOpened }: LinksProps) => {
                   scale: 0.95,
                 }}
               >
-                {item.label}
+                {item?.label}
               </motion.span>
             </div>
           </>
