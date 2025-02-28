@@ -14,6 +14,7 @@ import {
   faYoutube,
   faTiktok,
 } from "@fortawesome/free-brands-svg-icons";
+import memojiHand from "@/assets/memoji_hand.png";
 
 library.add(faX, faBars, faWindowRestore, faBagShopping, faDiceD6);
 
@@ -138,7 +139,7 @@ const certificates = {
 };
 
 const memoji = {
-  image: ["memojiHello", "memojiHand", "memojiOk"],
+  image: [memojiHand],
 };
 
 const skills = [
