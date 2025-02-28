@@ -8,11 +8,17 @@ const SectionTitle = (props: { title: string; subtitle: string }) => {
     <div className="text-green-300">
       <LazyMotion features={domAnimation} strict>
         <m.div
-          initial={{ x: -350 }}
+          initial={{ x: -200 }}
           whileInView={{ x: 0 }}
           transition={{ duration: 0.6, type: "spring" }}
-          className="text-primary-600 p-6 noselect"
+          className="text-primary-600 px-6 py-4 noselect"
         >
+          <h2
+            className="tracking-wider text-7xl sm:text-8xl md:text-9xl"
+            style={{ fontFamily: "Morganite Black" }}
+          >
+            <BounceComponent title={title} />
+          </h2>
           <span
             className="opacity-50"
             style={{
@@ -23,12 +29,6 @@ const SectionTitle = (props: { title: string; subtitle: string }) => {
           >
             {subtitle}
           </span>
-          <h2
-            className="tracking-wider text-7xl sm:text-8xl md:text-9xl"
-            style={{ fontFamily: "Morganite Black" }}
-          >
-            <BounceComponent title={title} />
-          </h2>
         </m.div>
       </LazyMotion>
     </div>

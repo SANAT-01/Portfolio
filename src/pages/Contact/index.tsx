@@ -22,7 +22,7 @@ const Contact = () => {
               initial={{ x: 200 }}
               whileInView={{ x: 0 }}
               transition={{ duration: 0.6, type: "spring" }}
-              className="w-full sm:w-[90%] md:w-[80%] sm:h-fit items-center rounded-xl border-4 border-green-300 p-4 flex flex-col sm:flex-row gap-4"
+              className="w-full sm:w-[90%] md:w-[80%] h-fit sm:h-[750px] items-center rounded-xl border-4 border-green-300 p-4 flex flex-col sm:flex-row gap-4"
             >
               <ContactServices />
               <ContactForm />

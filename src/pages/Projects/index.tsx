@@ -1,69 +1,35 @@
 "use client";
-import React from "react";
-import ProjectItem from "./ProjectItem";
-import Data from "@/pages/data/Data.json";
-import { motion } from "framer-motion";
-import BounceComponent from "@/components/bounce";
+import SectionTitle from "@/pages/Contact/sectionTitle";
+import { projects } from "@/constants/projects";
+import Project from "./projects";
 
-const Projects = () => {
-  const itemVariants = {
-    hidden: { opacity: 0, y: -20 },
-    show: { opacity: 1, y: 0 },
-  };
-  const variants = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1 },
-  };
+const Contact = () => {
   return (
-    <div id="projects" className=" bg-[rgb(11,11,11)] w-full">
-      <div className="max-w-[1240px] mx-auto px-2 py-16">
-        <motion.p
-          variants={variants}
-          initial="hidden"
-          animate="show"
-          transition={{ duration: 1 }}
-          className="text-xl tracking-widest text-green-300"
-        >
-          <BounceComponent title={"Projects"} />
-        </motion.p>
-        <motion.h2
-          variants={variants}
-          initial="hidden"
-          animate="show"
-          transition={{ duration: 1 }}
-          className="py-4"
-        >
-          What I have Built
-        </motion.h2>
-        <div className="">
-          <div className="">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {Data.projectData.map((item, index) => {
-                return (
-                  <motion.div
-                    key={index}
-                    variants={itemVariants}
-                    initial="hidden"
-                    whileInView="show"
-                    transition={{ duration: 1, delay: index * 0.1 }}
-                  >
-                    <ProjectItem
-                      key={index}
-                      title={item.title}
-                      backgroundImg={item.backgroundImg}
-                      projectUrl={item.projectUrl}
-                      websiteUrl={item.websiteUrl}
-                      tech={item.tech}
-                    />
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
+    <div
+      id="projects"
+      className="w-full flex flex-col items-center justify-center"
+    >
+      <div className="px-10 w-full md:w-[90%]">
+        <div className="w-full">
+          <SectionTitle title="Projects" subtitle="" />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
+          {projects?.map((project, index) => (
+            <Project
+              key={index}
+              id={index}
+              img={project?.img}
+              name={project?.name}
+              text={project?.text}
+              tools={project?.tools}
+              link={project?.link}
+              github={project?.github}
+            />
+          ))}
         </div>
       </div>
     </div>
   );
 };
 
-export default Projects;
+export default Contact;

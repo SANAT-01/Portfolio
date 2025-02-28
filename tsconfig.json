@@ -22,7 +22,7 @@
     "paths": {
       "@/app/*": ["app/*"],
       "@/pages/*": ["pages/*"],
-      // "@/public/*": ["public/*"],
+      "@/styles/*": ["styles/*"],
       "@/types/*": ["types/*"],
       "@/components/*": ["components/*"],
       "@/utils/*": ["utils/*"],

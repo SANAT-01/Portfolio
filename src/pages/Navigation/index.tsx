@@ -51,17 +51,17 @@ const NavBar = () => {
         <div className="flex justify-end md:justify-center items-center w-full h-full px-2">
           <div className="text-green-300">
             <ul className=" hidden md:flex ">
-              {links.map((link) => {
+              {links?.map((link) => {
                 return (
                   <div
-                    key={link.title}
+                    key={link?.title}
                     onClick={() => {
-                      router.push(link.link);
+                      router.push(link?.link);
                     }}
                     className="cursor-pointer"
                   >
                     <li className="ml-10 text-sm uppercase font-bold hover:text-white">
-                      {link.title}
+                      {link?.title}
                     </li>
                   </div>
                 );

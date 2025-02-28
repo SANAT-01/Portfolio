@@ -50,7 +50,7 @@ const Sidebar = () => {
         <Links handleToggle={handleToggle} isSidebarOpened={isSidebarOpened} />
       </motion.div>
 
-      <ToggleButton handleToggle={handleToggle} />
+      <ToggleButton handleToggle={handleToggle} isOpen={isSidebarOpened} />
     </motion.div>
   );
 };

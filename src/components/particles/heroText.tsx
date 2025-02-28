@@ -29,7 +29,7 @@ const HeroText = () => {
             whileInView={{ x: 0 }}
             transition={{ duration: 0.6, type: "spring" }}
           >
-            <BounceComponent title={"Sanat"} className="text-white text-9xl" />
+            <BounceComponent title={"$anat"} className="text-white text-9xl" />
           </m.div>
         </m.h1>
         <m.span
