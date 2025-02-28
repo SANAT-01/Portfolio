@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import styles from "@/styles/preloader.module.scss";
 import { motion } from "framer-motion";
 import { loaderVariant } from "@/utils/loaderVarients";
 
@@ -9,7 +8,7 @@ export default function Preloader() {
     <motion.div
       exit={{ opacity: 0, scale: 2 }}
       transition={{ duration: 1, ease: "easeInOut" }}
-      className={styles.preloader}
+      className="fixed z-[1000] w-full h-full top-0 left-0 bg-[#4ade80] grid place-content-center"
     >
       <motion.svg
         width="175"
@@ -17,6 +16,7 @@ export default function Preloader() {
         viewBox="0 0 25 46"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        className="lg:scale-100 sm:scale-[0.7]"
       >
         <motion.path
           initial={"hidden"}

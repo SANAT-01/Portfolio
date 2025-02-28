@@ -47,7 +47,7 @@ export const loaderVariant = () => {
       fill: ["#0a192f", "#0a192f", "#e6f1ff"],
       strokeWidth: 1,
       transition: {
-        duration: 5,
+        duration: 7,
         ease: "easeOut",
       },
     },
