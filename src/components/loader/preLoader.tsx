@@ -1,16 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Loader from "./loader";
 
 interface PreloadMediaProps {
   images: string[];
-  children: React.ReactNode;
+  loaded?: boolean;
+  setLoaded: (loaded: boolean) => void;
 }
 
-const PreloadMedia: React.FC<PreloadMediaProps> = ({ images, children }) => {
-  const [loaded, setLoaded] = useState(false);
-
+const PreloadMedia: React.FC<PreloadMediaProps> = ({ images, setLoaded }) => {
   useEffect(() => {
     let loadedImages = 0;
     const totalImages = images.length;
@@ -18,7 +17,7 @@ const PreloadMedia: React.FC<PreloadMediaProps> = ({ images, children }) => {
     const onLoad = () => {
       loadedImages++;
       if (loadedImages === totalImages) {
-        setLoaded(true);
+        setLoaded(false);
       }
     };
 
@@ -29,11 +28,7 @@ const PreloadMedia: React.FC<PreloadMediaProps> = ({ images, children }) => {
     });
   }, [images]);
 
-  if (!loaded) {
-    return <Loader />;
-  }
-
-  return <>{children}</>;
+  return <Loader />;
 };
 
 export default PreloadMedia;

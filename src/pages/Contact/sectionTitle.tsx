@@ -8,7 +8,7 @@ const SectionTitle = (props: { title: string; subtitle: string }) => {
     <div className="text-green-300">
       <LazyMotion features={domAnimation} strict>
         <m.div
-          initial={{ x: -350 }}
+          initial={{ x: -200 }}
           whileInView={{ x: 0 }}
           transition={{ duration: 0.6, type: "spring" }}
           className="text-primary-600 px-6 py-4 noselect"
