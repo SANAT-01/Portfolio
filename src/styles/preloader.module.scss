@@ -1,0 +1,17 @@
+.preloader {
+  position: fixed !important;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: #4ade80;
+  display: grid;
+  place-content: center;
+}
+
+.preloader svg {
+  @media (max-width: 500px) {
+    transform: scale(0.7);
+  }
+}

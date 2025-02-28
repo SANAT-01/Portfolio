@@ -10,6 +10,12 @@ interface PreloadMediaProps {
 
 const PreloadMedia: React.FC<PreloadMediaProps> = ({ images, children }) => {
   const [loaded, setLoaded] = useState(false);
+  const [showPreloader, setShowPreloader] = useState(false);
+
+  setTimeout(() => {
+    setShowPreloader(true);
+    setLoaded(true);
+  }, 7000);
 
   useEffect(() => {
     let loadedImages = 0;
@@ -17,7 +23,7 @@ const PreloadMedia: React.FC<PreloadMediaProps> = ({ images, children }) => {
 
     const onLoad = () => {
       loadedImages++;
-      if (loadedImages === totalImages) {
+      if (loadedImages === totalImages && showPreloader) {
         setLoaded(true);
       }
     };
@@ -27,7 +33,7 @@ const PreloadMedia: React.FC<PreloadMediaProps> = ({ images, children }) => {
       img.src = imageSrc;
       img.onload = onLoad;
     });
-  }, [images]);
+  }, [images, showPreloader]);
 
   if (!loaded) {
     return <Loader />;
