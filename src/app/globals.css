@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @font-face {
-  font-family: "Vermin Vibes";
-  src: url(/Fonts/Vermin/vermin_vibes.otf);
-} */
-
 * {
   margin: 0;
   padding: 0;
