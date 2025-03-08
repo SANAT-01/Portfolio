@@ -7,6 +7,7 @@ import Skills from "@/pages/Skills";
 import Main from "@/pages/Main";
 import Navigation from "@/pages/Navigation";
 
+// main app pages
 const App = () => {
   return (
     <div className="w-full h-full">

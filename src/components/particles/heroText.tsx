@@ -36,12 +36,14 @@ const HeroText = () => {
           initial={{ y: 100 }}
           whileInView={{ y: 0 }}
           transition={{ duration: 0.6, type: "spring" }}
-          className="cursor-pointer text-4xl sm:text-5xl underline underline-offset-4 decoration-primary-400"
+          className="cursor-pointer text-4xl sm:text-5xl decoration-primary-400"
           id="repulse-span"
           style={{ fontFamily: "Morganite Extra Bold, sans-serif" }}
         >
           <a href="#about">
-            <span className="text-lg">Front-end Developer</span>
+            <span className="text-lg underline underline-offset-2 italic">
+              Front-end Developer
+            </span>
           </a>
         </m.span>
       </LazyMotion>
