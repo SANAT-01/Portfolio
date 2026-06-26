@@ -21,13 +21,9 @@
     "baseUrl": "./src/",
     "paths": {
       "@/app/*": ["app/*"],
-      "@/pages/*": ["pages/*"],
-      "@/styles/*": ["styles/*"],
-      "@/types/*": ["types/*"],
       "@/components/*": ["components/*"],
-      "@/utils/*": ["utils/*"],
-      "@/constants/*": ["constants/*"],
-      "@/assets/*": ["assets/*"]
+      "@/data/*": ["data/*"],
+      "@/utils/*": ["utils/*"]
     }
   },
   "include": [

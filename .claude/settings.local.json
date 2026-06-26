@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:3001)",
+      "Bash(curl -s http://localhost:3001)",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(git mv *)",
+      "Bash(xargs sed -i '' 's#@/pages/#@/sections/#g')",
+      "Bash(rm -rf src/sections src/constants src/assets src/types)",
+      "Bash(rm -rf src/components/globe src/components/particles src/components/slider src/components/loader src/components/cursor src/components/toogleButton src/components/modal src/components/bounce)",
+      "Bash(rm -f src/utils/heroParticles.js src/utils/networkParticles.js src/utils/loaderVarients.ts)",
+      "Bash(rm -f handgesture.jpg college.jpg googlekeep.png car-rental.png mobileStore.jpg blogpost.jpg jobfinder.jpg weather.jpg school.jpg light.jpg chatapp.jpg vuram.jpg mesh.jpg contact.jpg)",
+      "Bash(npm install *)"
+    ]
+  }
+}
