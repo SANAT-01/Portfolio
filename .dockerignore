@@ -1,0 +1,18 @@
+node_modules
+.next
+.git
+.gitignore
+.claude
+.vscode
+.DS_Store
+npm-debug.log*
+*.tsbuildinfo
+
+# Secrets stay out of the build context; pass them as build args instead.
+.env*
+!.env.example
+
+Dockerfile
+.dockerignore
+docker-compose*.yml
+README.md
