@@ -60,7 +60,7 @@ pipeline {
 
     post {
         always {
-            sh 'docker builder prune -f --filter "until=24h"'
+            sh 'docker builder prune -af'
         }
         success {
             echo 'Deployed successfully'
