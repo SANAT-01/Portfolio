@@ -1,11 +1,11 @@
 pipeline {
     agent any
 
-    environment {
-        NEXT_PUBLIC_EMAILJS_SERVICE_ID = credentials('emailjs-service-id')
-        NEXT_PUBLIC_EMAILJS_TEMPLATE_ID = credentials('emailjs-template-id')
-        NEXT_PUBLIC_EMAILJS_PUBLIC_KEY = credentials('emailjs-public-key')
-    }
+    // environment {
+    //     NEXT_PUBLIC_EMAILJS_SERVICE_ID = credentials('emailjs-service-id')
+    //     NEXT_PUBLIC_EMAILJS_TEMPLATE_ID = credentials('emailjs-template-id')
+    //     NEXT_PUBLIC_EMAILJS_PUBLIC_KEY = credentials('emailjs-public-key')
+    // }
 
     stages {
         stage('Checkout') {
