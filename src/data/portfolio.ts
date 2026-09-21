@@ -43,9 +43,12 @@ export const skills: Skill[] = [
   { name: "Tailwind", icon: "/assets/skills/tailwind.png" },
   { name: "Sass", icon: "/assets/skills/saas.png" },
   { name: "Java", icon: "/assets/skills/java.png" },
+  { name: "Python", icon: "/assets/skills/python.svg" },
   { name: "SQL", icon: "/assets/skills/Sql.png" },
   { name: "MongoDB", icon: "/assets/skills/Mongo.png" },
+  { name: "Docker", icon: "/assets/skills/docker.svg" },
   { name: "Kubernetes", icon: "/assets/skills/kubernetes.png" },
+  { name: "Jenkins", icon: "/assets/skills/jenkins.svg" },
   { name: "Git", icon: "/assets/skills/git.png" },
   { name: "Appian", icon: "/assets/skills/appian.png" },
 ];
