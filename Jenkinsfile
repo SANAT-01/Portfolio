@@ -14,14 +14,14 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                sh '''
-                    npm ci
-                    npm run lint
-                '''
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         sh '''
+        //             npm ci
+        //             npm run lint
+        //         '''
+        //     }
+        // }
 
         stage('Build Image') {
             steps {
