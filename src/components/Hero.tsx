@@ -18,7 +18,7 @@ export default function Hero() {
           </p>
 
           <h1 className="text-4xl font-extrabold leading-tight text-white sm:text-5xl lg:text-6xl">
-            Hi, I&apos;m {profile.name.split(" ")[0]}
+            Hi!, I&apos;m {profile.name.split(" ")[0]}
             <span className="text-emerald-400">.</span>
           </h1>
 
