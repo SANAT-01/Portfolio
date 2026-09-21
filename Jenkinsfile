@@ -1,11 +1,14 @@
 pipeline {
     agent any
 
-    // environment {
-    //     NEXT_PUBLIC_EMAILJS_SERVICE_ID = credentials('emailjs-service-id')
-    //     NEXT_PUBLIC_EMAILJS_TEMPLATE_ID = credentials('emailjs-template-id')
-    //     NEXT_PUBLIC_EMAILJS_PUBLIC_KEY = credentials('emailjs-public-key')
-    // }
+    environment {
+        // VPS public address + HOST_PORT from docker-compose.yml. Not 127.0.0.1:
+        // if Jenkins runs in a container, that is Jenkins' own loopback, not the VPS.
+        DEPLOY_URL = 'http://187.127.138.250:24817'
+        // NEXT_PUBLIC_EMAILJS_SERVICE_ID = credentials('emailjs-service-id')
+        // NEXT_PUBLIC_EMAILJS_TEMPLATE_ID = credentials('emailjs-template-id')
+        // NEXT_PUBLIC_EMAILJS_PUBLIC_KEY = credentials('emailjs-public-key')
+    }
 
     stages {
         stage('Checkout') {
@@ -45,9 +48,11 @@ pipeline {
 
         stage('Health Check') {
             steps {
+                // Retry for ~30s instead of a fixed sleep: Next.js start time varies.
                 sh '''
-                    sleep 10
-                    curl -f http://127.0.0.1:24817/ || exit 1
+                    curl -fsS -o /dev/null --max-time 10 \
+                      --retry 10 --retry-delay 3 --retry-connrefused \
+                      "$DEPLOY_URL/"
                 '''
             }
         }
@@ -59,6 +64,8 @@ pipeline {
         }
         failure {
             echo 'Pipeline failed — check logs above'
+            sh 'docker compose ps || true'
+            sh 'docker compose logs --tail=50 || true'
         }
     }
 }
