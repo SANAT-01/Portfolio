@@ -1,54 +1,92 @@
-# My Portfolio
+# Sanat Tudu — Portfolio
 
-Welcome to my portfolio! This website was built with React and Framer Motion, and showcases my skills and projects as a web developer. You can visit the live website [here](https://vs-portfolio.pages.dev/).
+Personal portfolio site built with Next.js. It showcases my experience, skills and projects, and has a contact form that sends email through EmailJS.
 
-## Features
+## Tech stack
 
-- Responsive design
-- Smooth animations and transitions using Framer Motion
-- Project showcase with images, descriptions, and links
-- Skills section with icons and descriptions
-- Contact form with validation and email sending functionality
+- [Next.js](https://nextjs.org/) (App Router) + [React 19](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/) 3
+- [EmailJS](https://www.emailjs.com/) for the contact form
+- [react-icons](https://react-icons.github.io/react-icons/)
+- Docker + Jenkins for build and deployment
 
-## Technologies
+## Project structure
 
-This project was built with the following technologies:
+```
+src/
+├── app/            # layout, page, global styles, tab icon
+├── components/     # Hero, About, Skills, Experience, Projects, Contact, ...
+├── data/
+│   └── portfolio.ts  # all site content (profile, skills, experience, projects, socials)
+└── utils/          # small helpers
+public/assets/      # profile picture and skill icons
+```
 
-- React
-- Framer Motion
-- EmailJS
-- FontAwesome
-- Tailwind CSS
-- @react-hook/window-size
-- framer-motion
-- react-dom
-- react-fast-marquee
-- react-globe.gl
-- react-intersection-observer
-- react-particles
-- react-router-dom
-- react-scroll
-- react-tsparticles
-- tsparticles
+All content lives in [src/data/portfolio.ts](src/data/portfolio.ts). To update the site, edit that file — the components read everything from there.
 
-Dev Dependencies:
+- **Add a skill:** drop an icon in `public/assets/skills/` and add an entry to `skills`.
+- **Add a project:** add an entry to `projects` (set `liveUrl` / `codeUrl`, and remove `comingSoon`).
+- **Add a resume:** put a PDF in `public/` and set `profile.resumeUrl`, e.g. `"/resume.pdf"`.
 
-- dotenv
-- autoprefixer
-- postcss
-- tailwindcss
-- vite
-- @types/react
-- @types/react-dom
-- @vitejs/plugin-react
+## Getting started
 
-## Credits
+Requires Node.js 20 or newer.
 
-This project was created by [Valeriu Secrieru](https://www.github.com/valeriusec) using the following technologies:
+```bash
+npm install
+cp .env.example .env.local   # then fill in the EmailJS values (optional)
+npm run dev                  # http://localhost:3000
+```
 
-- [React](https://reactjs.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [EmailJS](https://www.emailjs.com/)
-- [FontAwesome](https://fontawesome.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- and other open-source libraries and tools.
+| Script          | What it does                    |
+| --------------- | ------------------------------- |
+| `npm run dev`   | Start the dev server            |
+| `npm run build` | Create a production build       |
+| `npm start`     | Serve the production build      |
+| `npm run lint`  | Run the linter                  |
+
+## Environment variables
+
+| Variable                           | Description                    |
+| ---------------------------------- | ------------------------------ |
+| `NEXT_PUBLIC_EMAILJS_SERVICE_ID`   | EmailJS service ID             |
+| `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID`  | EmailJS template ID            |
+| `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY`   | EmailJS public key             |
+
+Get these from your [EmailJS](https://www.emailjs.com/) account. If they aren't set, the contact form falls back to opening the visitor's mail app.
+
+`NEXT_PUBLIC_*` values are inlined into the JavaScript bundle **at build time**, so changing them requires a rebuild.
+
+## Docker
+
+The [Dockerfile](Dockerfile) is a multi-stage build that uses Next.js `output: "standalone"` to produce a small production image (the container runs `node server.js`).
+
+```bash
+cp .env.example .env            # Compose reads .env (not .env.local)
+docker compose up -d --build
+```
+
+The app is served on host port **24817** by default (mapped to port 3000 inside the container). To use a different port, set `HOST_PORT` in `.env`. The EmailJS variables above are passed to the image as build args.
+
+```bash
+docker compose logs -f          # follow logs
+docker compose down             # stop and remove the container
+```
+
+## CI/CD
+
+The [Jenkinsfile](Jenkinsfile) deploys to a VPS on every run:
+
+1. **Checkout** — pull the repository.
+2. **Build Image** — `docker build` the image, passing the EmailJS build args.
+3. **Deploy** — `docker compose up -d --force-recreate`.
+4. **Health Check** — `curl` the deployed URL (`DEPLOY_URL`), retrying for about 30 seconds.
+
+On failure the pipeline prints `docker compose ps` and the recent container logs. To enable the contact form in deployed builds, uncomment the `environment` credentials in the Jenkinsfile and create matching credentials in Jenkins (`emailjs-service-id`, `emailjs-template-id`, `emailjs-public-key`).
+
+## Contact
+
+- Email: [sanattudu.plan@gmail.com](mailto:sanattudu.plan@gmail.com)
+- GitHub: [SANAT-01](https://github.com/SANAT-01)
+- LinkedIn: [sanat-tudu](https://www.linkedin.com/in/sanat-tudu/)
