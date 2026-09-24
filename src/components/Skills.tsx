@@ -14,7 +14,7 @@ export default function Skills() {
             <Reveal
               key={skill.name}
               delay={(i % 5) * 60}
-              className="group flex flex-col items-center gap-3 rounded-xl border border-white/5 bg-white/[0.03] p-6 transition-all hover:-translate-y-1 hover:border-emerald-500/40 hover:bg-white/[0.05]"
+              className="card card-hover group flex flex-col items-center gap-3 p-6"
             >
               <div className="relative h-12 w-12">
                 <Image
@@ -25,7 +25,7 @@ export default function Skills() {
                   className="object-contain transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
-              <span className="text-sm font-medium text-slate-300">
+              <span className="text-sm font-medium text-slate-300 transition-colors group-hover:text-white">
                 {skill.name}
               </span>
             </Reveal>

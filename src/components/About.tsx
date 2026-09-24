@@ -20,9 +20,9 @@ export default function About() {
             <Reveal
               key={item.label}
               delay={i * 80}
-              className="rounded-xl border border-white/5 bg-white/[0.03] p-5 transition-colors hover:border-emerald-500/40"
+              className="card card-hover p-5"
             >
-              <p className="text-xs uppercase tracking-wider text-emerald-400">
+              <p className="text-xs font-semibold uppercase tracking-wider text-emerald-400">
                 {item.label}
               </p>
               <p className="mt-1 font-medium text-white">{item.value}</p>

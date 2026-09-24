@@ -7,14 +7,15 @@ type Props = {
 
 export default function SectionHeading({ eyebrow, title }: Props) {
   return (
-    <Reveal className="mb-12 text-center">
-      <p className="text-sm font-medium uppercase tracking-[0.2em] text-emerald-400">
+    <Reveal className="mb-14 text-center">
+      <p className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-emerald-400">
+        <span className="h-px w-8 bg-gradient-to-r from-transparent to-emerald-400/70" />
         {eyebrow}
+        <span className="h-px w-8 bg-gradient-to-l from-transparent to-emerald-400/70" />
       </p>
-      <h2 className="mt-2 text-3xl font-bold text-white sm:text-4xl">
+      <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
         {title}
       </h2>
-      <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-emerald-500" />
     </Reveal>
   );
 }

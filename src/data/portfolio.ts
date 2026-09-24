@@ -13,7 +13,7 @@ export const profile = {
   tagline:
     "I build fast, reliable, and thoughtfully designed web applications.",
   location: "India",
-  email: "sanattudu.plan@gmail.com",
+  email: "sanat.tudu.tech@gmail.com",
   resumeUrl: "", // optional: drop a PDF in /public and set e.g. "/resume.pdf"
   avatar: "/assets/profile_pic.png",
 };
@@ -24,7 +24,7 @@ export const about = {
   brief:
     "I'm a fast learner who thrives in collaborative teams and cares deeply about code quality, performance, and user experience. I'm always exploring new technologies and looking for opportunities to build things that matter.",
   highlights: [
-    { label: "Experience", value: "Software Developer @ Winjit" },
+    { label: "Experience", value: "Software Engineer @ Winjit" },
     { label: "Education", value: "B.Tech DSAI, IIT Bhilai" },
     { label: "Focus", value: "Web · Full-Stack · AI" },
     { label: "Location", value: "India" },
@@ -63,7 +63,7 @@ export type Experience = {
 
 export const experience: Experience[] = [
   {
-    title: "Software Developer",
+    title: "Software Engineer",
     org: "Winjit Technologies",
     location: "Onsite, India",
     period: "2024 — Present",
@@ -125,8 +125,7 @@ export const projects: Project[] = [
 export const socials = {
   github: "https://github.com/SANAT-01",
   linkedin: "https://www.linkedin.com/in/sanat-tudu/",
-  instagram: "https://instagram.com/_sanat_tudu",
-  email: "sanattudu.plan@gmail.com",
+  email: "sanat.tudu.tech@gmail.com",
 };
 
 export const navLinks = [

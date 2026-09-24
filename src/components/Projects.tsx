@@ -14,15 +14,17 @@ export default function Projects() {
             <Reveal
               key={project.title}
               delay={(i % 3) * 90}
-              className="group flex flex-col overflow-hidden rounded-2xl border border-white/5 bg-white/[0.03] transition-all hover:-translate-y-1 hover:border-emerald-500/40"
+              className="card card-hover group flex flex-col overflow-hidden"
             >
               {/* Cover */}
-              <div className="relative flex h-40 items-center justify-center bg-gradient-to-br from-emerald-500/15 to-slate-800/40">
-                <span className="text-5xl font-bold text-white/10">
+              <div className="relative flex h-44 items-center justify-center overflow-hidden border-b border-white/[0.06] bg-gradient-to-br from-emerald-500/20 via-teal-500/[0.06] to-transparent">
+                <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_at_center,#000_30%,transparent_75%)]" />
+                <div className="absolute -bottom-10 left-1/2 h-32 w-32 -translate-x-1/2 rounded-full bg-emerald-400/20 blur-3xl transition-opacity duration-500 group-hover:opacity-100 opacity-50" />
+                <span className="relative text-6xl font-extrabold tracking-tight text-white/10 transition-colors duration-300 group-hover:text-white/20">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 {project.comingSoon && (
-                  <span className="absolute right-3 top-3 rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-medium text-emerald-300">
+                  <span className="absolute right-3 top-3 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-300 backdrop-blur-sm">
                     Coming soon
                   </span>
                 )}
@@ -40,7 +42,7 @@ export default function Projects() {
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className="rounded-full bg-white/5 px-3 py-1 text-xs text-slate-300"
+                      className="rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1 text-xs text-slate-300"
                     >
                       {t}
                     </span>

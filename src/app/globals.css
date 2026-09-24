@@ -31,9 +31,68 @@ body::before {
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(60rem 60rem at 80% -10%, rgba(16, 185, 129, 0.12), transparent 60%),
-    radial-gradient(50rem 50rem at 0% 20%, rgba(16, 185, 129, 0.07), transparent 55%);
+    radial-gradient(60rem 60rem at 80% -10%, rgba(16, 185, 129, 0.14), transparent 60%),
+    radial-gradient(50rem 50rem at 0% 20%, rgba(20, 184, 166, 0.08), transparent 55%),
+    radial-gradient(40rem 40rem at 50% 110%, rgba(56, 189, 248, 0.06), transparent 60%);
   pointer-events: none;
+}
+
+/* Faint grid that fades out toward the edges */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 50% 0%, #000 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 20%, transparent 70%);
+  pointer-events: none;
+}
+
+@layer components {
+  /* Emerald-to-teal gradient text */
+  .text-gradient {
+    @apply bg-gradient-to-r from-emerald-300 via-emerald-400 to-teal-300 bg-clip-text text-transparent;
+  }
+
+  /* Glassy card with a soft glow on hover */
+  .card {
+    @apply rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.05] to-white/[0.015] backdrop-blur-sm transition-all duration-300;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
+  }
+  .card-hover:hover {
+    @apply -translate-y-1 border-emerald-400/30;
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.06),
+      0 12px 40px -12px rgba(16, 185, 129, 0.25);
+  }
+
+  /* Primary pill button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 px-6 py-3 font-medium text-[#04211a] transition-all duration-300 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0;
+    box-shadow: 0 8px 24px -8px rgba(16, 185, 129, 0.55);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 12px 32px -8px rgba(16, 185, 129, 0.7);
+  }
+
+  /* Secondary outline pill button */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-6 py-3 font-medium text-slate-200 transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-400/60 hover:text-emerald-300;
+  }
+
+  /* Round social icon button */
+  .icon-btn {
+    @apply inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-lg text-slate-300 transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-400/50 hover:bg-emerald-400/10 hover:text-emerald-300;
+  }
+
+  /* Form fields */
+  .field {
+    @apply w-full rounded-xl border border-white/10 bg-[#0a0f14]/70 px-4 py-3 text-white outline-none transition-all duration-200 placeholder:text-slate-500 focus:border-emerald-400/70 focus:ring-4 focus:ring-emerald-400/10;
+  }
 }
 
 ::selection {
@@ -59,7 +118,12 @@ body::before {
 .reveal {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease,
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
   will-change: opacity, transform;
 }
 .reveal.is-visible {
@@ -77,7 +141,9 @@ body::before {
     transition: none;
   }
   .blink-caret,
-  .float-slow {
+  .float-slow,
+  .spin-slow,
+  .scroll-dot {
     animation: none !important;
   }
 }
@@ -103,5 +169,33 @@ body::before {
   }
   50% {
     transform: translateY(-12px);
+  }
+}
+
+/* Slowly rotating gradient ring around the hero avatar */
+.spin-slow {
+  animation: spin 14s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Scroll hint dot */
+.scroll-dot {
+  animation: scroll-dot 1.8s ease-in-out infinite;
+}
+@keyframes scroll-dot {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(12px);
   }
 }

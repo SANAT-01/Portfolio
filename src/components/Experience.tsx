@@ -23,17 +23,17 @@ export default function Experience() {
             >
               {/* Node */}
               <span
-                className={`absolute top-1.5 h-6 w-6 rounded-full border-4 border-[#0a0f14] bg-emerald-500 left-0 ${
+                className={`absolute top-1.5 h-6 w-6 rounded-full border-4 border-[#0a0f14] bg-gradient-to-br from-emerald-300 to-teal-500 shadow-[0_0_0_4px_rgba(16,185,129,0.15)] left-0 ${
                   i % 2 === 0
                     ? "md:-left-3"
                     : "md:left-auto md:-right-3"
                 }`}
               />
-              <div className="rounded-xl border border-white/5 bg-white/[0.03] p-5 transition-colors hover:border-emerald-500/40">
-                <span className="text-xs font-medium uppercase tracking-wider text-emerald-400">
+              <div className="card card-hover p-6">
+                <span className="inline-block rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-emerald-300">
                   {item.period}
                 </span>
-                <h3 className="mt-1 text-lg font-semibold text-white">
+                <h3 className="mt-3 text-lg font-semibold text-white">
                   {item.title}
                 </h3>
                 <p className="text-sm text-slate-300">
