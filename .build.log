@@ -1,0 +1,18 @@
+2026-09-20T07:03:02.210723 Project directory: /root/apps/Portfolio
+2026-09-20T07:03:02.211029 Pulling project images
+2026-09-20T07:03:02.212126 ------------------------------
+2026-09-20T07:03:02.269270  Image portfolio:latest Pulling 
+2026-09-20T07:03:03.559556  Image portfolio:latest pull access denied for portfolio, repository does not exist or may require 'docker login' 
+2026-09-20T07:03:03.559612 time="2026-09-20T07:03:03Z" level=warning msg="WARNING: Some service image(s) must be built from source by running:\n    docker compose build portfolio"
+2026-09-20T07:03:03.559665 Error response from daemon: pull access denied for portfolio, repository does not exist or may require 'docker login'
+2026-09-20T07:03:03.562403 ------------------------------
+2026-09-20T07:03:03.562465 Image pull failed with code 1
+2026-09-20T07:03:03.562991 Pull failed with a non-transient error, not retrying
+2026-09-20T07:03:03.563025 Deploying project
+2026-09-20T07:03:03.563597 ------------------------------
+2026-09-20T07:03:03.655007  Container portfolio Recreate 
+2026-09-20T07:03:03.812005  Container portfolio Recreated 
+2026-09-20T07:03:03.821284  Container portfolio Starting 
+2026-09-20T07:03:03.957227  Container portfolio Started 
+2026-09-20T07:03:03.962199 ------------------------------
+2026-09-20T07:03:03.962243 Project deployed successfully
