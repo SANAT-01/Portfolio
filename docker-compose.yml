@@ -8,6 +8,10 @@ services:
         NEXT_PUBLIC_EMAILJS_SERVICE_ID: ${NEXT_PUBLIC_EMAILJS_SERVICE_ID:-}
         NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: ${NEXT_PUBLIC_EMAILJS_TEMPLATE_ID:-}
         NEXT_PUBLIC_EMAILJS_PUBLIC_KEY: ${NEXT_PUBLIC_EMAILJS_PUBLIC_KEY:-}
+    environment:
+      # Read server-side at runtime (not baked into the build) — optional,
+      # raises the GitHub API rate limit for the Projects section.
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
     image: portfolio:latest
     container_name: portfolio
     ports:
