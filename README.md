@@ -1,4 +1,4 @@
-# Sanat Tudu — Portfolio
+# Sanat Tudu — Portfolio App
 
 Personal portfolio site built with Next.js. It showcases my experience, skills and projects, and has a contact form that sends email through EmailJS.
 
