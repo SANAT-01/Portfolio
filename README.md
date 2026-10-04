@@ -3,7 +3,7 @@
 Personal portfolio site built with Next.js. It showcases my experience, skills and projects, and has a contact form that sends email through EmailJS.
 
 ## Tech stack 
-
+ 
 - [Next.js](https://nextjs.org/) (App Router) + [React 19](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/) 3
