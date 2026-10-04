@@ -1,0 +1,200 @@
+%-------------------------
+% Resume of Sanat Tudu
+% Based on "Rezume" by Nanu Panchamurthy (MIT), itself based on github.com/sb2nov/resume
+% One-page version: single-column, ATS-friendly layout (no tables for content),
+% projects section showcasing system design, condensed experience.
+%-------------------------
+
+%------------PACKAGES----------------
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{verbatim}
+\usepackage{needspace} % keeps a project heading together with its first bullets
+\usepackage{titlesec}
+\usepackage{color}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+\usepackage{latexsym}
+\usepackage{marvosym}
+\usepackage[empty]{fullpage}
+\usepackage[hidelinks]{hyperref}
+\usepackage[normalem]{ulem}
+\usepackage[english]{babel}
+%-----------------------------------------
+
+\input glyphtounicode % maps glyphs to unicode so ATS parsers read the text correctly
+\pdfgentounicode=1
+\pdfinterwordspaceon % write real space characters into the PDF so words never run together
+\hyphenpenalty=10000 \exhyphenpenalty=10000 % never hyphenate (ATS reads "idem-potency" as two words)
+
+%----------FONT OPTIONS-------------------
+\usepackage[T1]{fontenc} % real ~ glyph and clean text extraction for ATS
+\usepackage[default]{sourcesanspro}
+\urlstyle{same}
+%-----------------------------------------
+
+%----------MARGIN OPTIONS-----------------
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0in}
+\renewcommand{\footrulewidth}{0in}
+\setlength{\tabcolsep}{0in}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\topmargin}{-0.7in}
+\addtolength{\textwidth}{1.0in}
+\addtolength{\textheight}{1.45in}
+
+\raggedbottom{}
+\raggedright{}
+%------------------------------------------
+
+%--------SECTIONING COMMANDS---------
+\titleformat{\section}
+  {\large\bfseries}{}
+    {0em}{\color{blue}\MakeUppercase}[\color{black}\titlerule\vspace{0pt}]
+\titlespacing*{\section}{0pt}{7pt}{3pt}
+%-------------------------------------
+
+%--------REDEFINITIONS----------------
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\renewcommand{\ULdepth}{2pt}
+%-------------------------------------
+
+%--------CUSTOM COMMANDS--------------
+% One bullet point
+\newcommand{\resumeItem}[1]{
+  \item\small{#1}
+}
+
+\newcommand{\resumeItemListStart}{\begin{itemize}[rightmargin=0.11in, topsep=1pt, itemsep=0pt, parsep=0pt, partopsep=0pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
+
+% Skills row: plain text "Label: values" (no table, so ATS reads it in order)
+\newcommand{\resumeSkill}[2]{
+  \item\small{\textbf{#1:} #2}
+}
+
+% Two-line heading: bold title + right-aligned date, italic subtitle + right-aligned place
+\newcommand{\resumeSubheading}[4]{
+  \item
+  \textbf{#1} \hfill #2 \\
+  \textit{\small #3} \hfill \textit{\small #4}
+}
+
+% Second role under the same employer (company name is written only once)
+\newcommand{\resumeRole}[2]{
+  \item
+  \textit{\small #1} \hfill \textit{\small #2}
+}
+
+% Project heading: bold name | stack
+\newcommand{\resumeProjectHeading}[2]{
+  \Needspace{3\baselineskip}
+  \item
+  \textbf{#1} \small{$|$ \textit{#2}}
+}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}, topsep=1pt, itemsep=3pt, parsep=0pt]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}, topsep=1pt, itemsep=2pt, parsep=0pt]}
+\newcommand{\resumeHeadingListEnd}{\end{itemize}}
+%-------------------------------------------
+
+%__________________RESUME____________________
+\begin{document}
+
+%-----------CONTACT DETAILS (centered, plain text -> parses cleanly)------------
+\begin{center}
+  {\Huge \textbf{Sanat Tudu}} \\[3pt]
+  \small Software Engineer \ $|$ \ +91 9836787369 \ $|$ \ \href{mailto:sanat.tudu.tech@gmail.com}{sanat.tudu.tech@gmail.com} \\[1pt]
+  \small \href{https://github.com/sanat-01}{github.com/sanat-01} \ $|$ \ \href{https://www.linkedin.com/in/sanat-tudu/}{linkedin.com/in/sanat-tudu} \ $|$ \ \href{https://sanattudu.tech}{https://sanattudu.tech}
+\end{center}
+\vspace{-8pt}
+
+%-----------SUMMARY--------------------------
+\section{Summary}
+\small{
+   Full Stack and Backend Software Engineer with 2+ years building production web applications (React, Next.js, Node.js, NestJS) and a strong foundation in AI and system design. Developed and deployed Dockerized systems on a self-managed VPS using caching, message queues, event-driven fan-out, the outbox pattern, rate limiting and idempotency; familiar with SEO, sharding, replication, CDNs, circuit breakers, exponential backoff and dead-letter queues.
+}
+
+%--------------SKILLS------------------------
+\section{Skills}
+  \resumeHeadingListStart{}
+    \resumeSkill{Languages}{JavaScript, TypeScript, Python, C++, Java}
+    \resumeSkill{Web}{React.js, Next.js, Node.js, NestJS, Express.js, Spring Boot, HTML, CSS, REST APIs, JWT, OAuth}
+    \resumeSkill{System Design}{Distributed Systems, Caching, Event-Driven Architecture, Message Queues, Outbox Pattern, Fan-out, Rate Limiting, Idempotency, Load Balancing}
+    \resumeSkill{Familiar With}{Database Sharding, Replication, CDN, Circuit Breaker, Exponential Backoff, Dead-Letter Queues, Token Bucket and Sliding Window Algorithms, Hybrid Push/Pull Fan-out, Capacity Estimation}
+    \resumeSkill{Messaging \& Databases}{Apache Kafka, RabbitMQ, Redis, PostgreSQL, MongoDB, MySQL}
+    \resumeSkill{DevOps \& Cloud}{Docker, Docker Compose, Jenkins (CI/CD), Traefik, Nginx, AWS EC2, Linux, Git, GitHub, Let's Encrypt}
+    \resumeSkill{Data Science \& ML}{Machine Learning, Deep Learning, NLP, Scikit-learn, TensorFlow, PyTorch, NumPy, Pandas}
+    \resumeSkill{Tools \& Practices}{Spec-Driven Development, Strapi CMS, Mixpanel, Facebook Pixel, TikTok Pixel,  Google Tag Manager, n8n}
+  \resumeHeadingListEnd{}
+
+%-----------PROJECTS--------------------------
+% TODO (quantifying impact): add one MEASURED number per project, e.g. p95 latency with
+% cache off vs on, containers running, pipeline duration, duplicate sends across N crashes.
+\section{System Design Projects}
+  \resumeSubHeadingListStart{}
+
+    \resumeProjectHeading{Scalable Feed System}{Next.js, Node.js, PostgreSQL, Kafka, Redis, Nginx, Docker}
+    \resumeItemListStart{}
+      \resumeItem{Implemented \textbf{fan-out-on-write} feeds: a post and its \textbf{outbox} record commit in one PostgreSQL transaction, are relayed to \textbf{Kafka} by a poller using row-level locking (SKIP LOCKED), and fanned out by consumer-group workers that scale horizontally into per-user \textbf{Redis} feed lists.}
+      \resumeItem{Served reads from Redis feed lists and a post cache (PostgreSQL as source of truth, AOF persistence); secured with JWT authentication behind an Nginx gateway; deployed with Traefik and automatic HTTPS.}
+    \resumeItemListEnd{}
+
+    \resumeProjectHeading{Distributed Rate Limiter}{Redis, Nginx, Docker, Next.js}
+    \resumeItemListStart{}
+      \resumeItem{Engineered a configurable limiter (algorithm, limit, window; default 10 requests per minute) running as replicas behind an \textbf{Nginx load balancer} with shared \textbf{Redis} counters for consistent enforcement, plus selectable \textbf{fail-open / fail-closed} behavior on Redis outage.}
+    \resumeItemListEnd{}
+
+    \resumeProjectHeading{Multi-Channel Notification System}{Node.js, Express.js, RabbitMQ, Redis, Next.js, Docker}
+    \resumeItemListStart{}
+      \resumeItem{Architected an \textbf{event-driven} pipeline: an Express API fans events out to per-channel \textbf{RabbitMQ} queues (push, email) consumed by independent workers; Redis \textbf{idempotency keys} and claim leases prevent duplicates under at-least-once delivery.}
+    \resumeItemListEnd{}
+
+    \resumeProjectHeading{URL Shortener}{Node.js, PostgreSQL, Redis, Next.js, Docker}
+    \resumeItemListStart{}
+      \resumeItem{Developed a read-heavy service with a \textbf{Redis cache-aside} layer over indexed PostgreSQL lookups; caching and \textbf{301 vs 302} redirects are configurable to compare latency, database load and analytics trade-offs.}
+    \resumeItemListEnd{}
+
+    \resumeProjectHeading{Self-Hosted Production Platform \& CI/CD}{Docker, Jenkins, Traefik, Nginx, PostgreSQL, Redis, Linux}
+    \resumeItemListStart{}
+      \resumeItem{Operate a Linux VPS running multiple containerized apps behind \textbf{Traefik} (host routing, automatic Let's Encrypt TLS) with shared PostgreSQL and Redis; automated deployments with a \textbf{Jenkins CI/CD pipeline} (build, deploy, health checks).}
+    \resumeItemListEnd{}
+
+  \resumeSubHeadingListEnd{}
+
+%-----------EXPERIENCE-----------------------
+\section{Work Experience}
+\resumeSubHeadingListStart
+
+\resumeSubheading
+{Winjit Technologies Pvt. Ltd.}{Nashik, Maharashtra, India}
+{Software Engineer}{Apr 2025 -- Present}
+\resumeItemListStart{}
+\resumeItem{Contributed to a scalable \textbf{NestJS} backend platform for a premier \textbf{K-12 educational institution network in India}: REST APIs, authentication modules and service integrations supporting high concurrent user traffic.}
+\resumeItem{Improved API consistency and maintainability via modular architecture, reusable service layers and efficient queries; collaborated across frontend, backend and DevOps teams (code reviews, production deployments) using \textbf{Git}.}
+\resumeItemListEnd{}
+
+\resumeRole{Software Developer}{Jul 2024 -- Mar 2025}
+\resumeItemListStart{}
+\resumeItem{Delivered fintech microsites in \textbf{React.js} (page loads \textbf{\textasciitilde{}25\%} faster, lead conversion \textbf{\textasciitilde{}12\%} higher) and a \textbf{Next.js} social media--style app using \textbf{SSR and CSR} that cut TTFB by \textbf{\textasciitilde{}30\%} and lifted user engagement by \textbf{\textasciitilde{}15\%}.}
+\resumeItem{Designed a \textbf{multi-stage production Dockerfile} and containerized the application on \textbf{AWS EC2}, reducing cold-start time and eliminating environment drift between staging and production.}
+\resumeItem{Added automated \textbf{sitemap.xml} and \textbf{robots.txt} generation (\textbf{40\% increase} in indexed pages) plus SEO metadata and \textbf{Open Graph previews} (\textbf{\textasciitilde{}20\%} higher social click-through).}
+\resumeItem{Integrated \textbf{Strapi CMS} (\textbf{\textasciitilde{}60\%} less marketing dependency on engineering) and secure custom video embeds (non-technical teams publish video \textbf{2x faster}).}
+\resumeItem{Instrumented \textbf{Mixpanel} funnel analytics (drove two major feature optimizations) and configured \textbf{TikTok Pixel} via \textbf{Google Tag Manager} (\textbf{\textasciitilde{}18\%} less ad spend waste).}
+\resumeItem{Enabled OAuth sign-in for \textbf{Google, Apple, and Snapchat}, increasing successful sign-ins by \textbf{\textasciitilde{}25\%}.}
+\resumeItemListEnd{}
+
+\resumeSubHeadingListEnd
+
+%-----------EDUCATION-------------------------
+\section{Education}
+  \resumeHeadingListStart{}
+    \item \textbf{Indian Institute of Technology Bhilai} -- B.Tech in Data Science and Artificial Intelligence, 7.9 CGPA \hfill Sep 2020 -- May 2024
+    \item \textbf{KVS Santragachi, Howrah} -- Class 12th, Computer Science (CBSE), 92\% \hfill July 2020
+  \resumeHeadingListEnd{}
+
+\end{document}

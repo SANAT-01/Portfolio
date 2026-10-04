@@ -14,12 +14,8 @@ export const profile = {
     "I build fast, reliable web applications and optimize the backend services and DevOps pipelines behind them.",
   location: "India",
   email: "sanat.tudu.tech@gmail.com",
-  // Direct Google Drive file link (not a folder link — those open a file
-  // browser, not the document). Clicking Resume opens this in a new tab
-  // on Drive's viewer. Get one from Drive: right-click the PDF → Share →
-  // "Anyone with the link" → Copy link.
   resumeUrl:
-    "https://drive.google.com/file/d/1z4QVk-BkVSZvGSDm2RNkvJ-pclYeC7zC/view?usp=sharing",
+    "https://drive.google.com/drive/folders/1EcOz-nNXIAnV0Qj-hc2tBG6Tv1rYyFUk?usp=sharing",
   avatar: "/assets/profile_pic.png",
 };
 
@@ -77,7 +73,7 @@ export const experience: Experience[] = [
     title: "Software Engineer",
     org: "Winjit Technologies",
     location: "Onsite, India",
-    period: "2026 — Present",
+    period: "Apr 2025 — Present",
     description:
       "Promoted from Software Developer. Building advanced UI components while optimizing backend services and DevOps pipelines for performance and reliability. Collaborating across teams to ship reliable, performant features.",
   },
@@ -85,7 +81,7 @@ export const experience: Experience[] = [
     title: "Software Developer",
     org: "Winjit Technologies",
     location: "Onsite, India",
-    period: "2024 — 2026",
+    period: "Jul 2024 — Mar 2025",
     description:
       "Built and shipped UI components and full-stack features, and optimized backend services and DevOps workflows, working closely with design and backend teams.",
   },
