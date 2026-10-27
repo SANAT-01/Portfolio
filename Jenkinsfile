@@ -10,6 +10,14 @@ pipeline {
         // NEXT_PUBLIC_EMAILJS_PUBLIC_KEY = credentials('emailjs-public-key')
         // NEXT_PUBLIC_UMAMI_SCRIPT_URL = credentials('umami-script-url')
         // NEXT_PUBLIC_UMAMI_WEBSITE_ID = credentials('umami-website-id')
+
+        // Required — docker-compose.yml's umami service has no default for
+        // these (`${VAR:?...}`), so without them even `docker compose up -d`
+        // for the portfolio app fails, since Compose validates the whole
+        // file up front. Create both as "Secret text" credentials in
+        // Jenkins (Manage Jenkins → Credentials) with the exact IDs below.
+        UMAMI_DB_PASSWORD = credentials('umami-db-password')
+        UMAMI_APP_SECRET = credentials('umami-app-secret')
     }
 
     stages {
