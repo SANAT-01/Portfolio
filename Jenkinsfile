@@ -8,8 +8,16 @@ pipeline {
         // NEXT_PUBLIC_EMAILJS_SERVICE_ID = credentials('emailjs-service-id')
         // NEXT_PUBLIC_EMAILJS_TEMPLATE_ID = credentials('emailjs-template-id')
         // NEXT_PUBLIC_EMAILJS_PUBLIC_KEY = credentials('emailjs-public-key')
-        // NEXT_PUBLIC_UMAMI_SCRIPT_URL = credentials('umami-script-url')
-        // NEXT_PUBLIC_UMAMI_WEBSITE_ID = credentials('umami-website-id')
+
+        // These are NEXT_PUBLIC_* — baked into the portfolio image as Docker
+        // build args (see Build Image below), not read from any .env file
+        // on the VPS. Without them, the Umami tracking script is silently
+        // left out of every build (src/app/layout.tsx only renders it when
+        // both are present) — the site still works, it just isn't tracked.
+        // Create both as "Secret text" credentials in Jenkins with the
+        // values from Umami's dashboard → your website → Tracking Code.
+        NEXT_PUBLIC_UMAMI_SCRIPT_URL = credentials('umami-script-url')
+        NEXT_PUBLIC_UMAMI_WEBSITE_ID = credentials('umami-website-id')
 
         // Required — docker-compose.yml's umami service has no default for
         // these (`${VAR:?...}`), so without them even `docker compose up -d`

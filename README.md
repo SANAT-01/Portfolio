@@ -170,24 +170,38 @@ The [Jenkinsfile](Jenkinsfile) deploys to a VPS on every run:
 3. **Deploy** — `docker compose up -d`, then `docker compose up -d --force-recreate portfolio` so only the app container is bounced (Umami and its database are left running).
 4. **Health Check** — `curl` the deployed URL (`DEPLOY_URL`), retrying for about 30 seconds.
 
-On failure the pipeline prints `docker compose ps` and the recent container logs. To enable the contact form in deployed builds, uncomment the EmailJS `environment` credentials in the Jenkinsfile and create matching credentials in Jenkins (`emailjs-service-id`, `emailjs-template-id`, `emailjs-public-key`). Do the same for `umami-script-url` and `umami-website-id` once you've completed the Umami setup above.
+On failure the pipeline prints `docker compose ps` and the recent container logs. To enable the contact form in deployed builds, uncomment the EmailJS `environment` credentials in the Jenkinsfile and create matching credentials in Jenkins (`emailjs-service-id`, `emailjs-template-id`, `emailjs-public-key`).
 
-**`umami-db-password` and `umami-app-secret` are not optional.** Unlike the
-credentials above, these two are already active (uncommented) in the
-Jenkinsfile, because `docker-compose.yml`'s `umami` service requires them
-with no default — Compose validates the *entire* file before running any
-command, so without these two credentials configured in Jenkins, **every**
-deploy fails at the `docker compose` step, not just analytics. Jenkins
-checks out a fresh copy of the repo on each run, so a `.env` file created
-by hand on the VPS (e.g. in `~/apps/Portfolio`) is invisible to it — these
-must be Jenkins credentials, not a `.env` file, for CI deploys to work.
+**Four more Jenkins credentials are required for analytics** — all four are
+already active (uncommented) in the Jenkinsfile, not optional like EmailJS
+above, because without them either the deploy fails outright or the
+tracking script silently never ships:
 
-Create both as **Secret text** credentials in Jenkins (Manage Jenkins →
-Credentials) with these exact IDs:
-- `umami-db-password` — the password Umami uses to reach its Postgres
-  database (see Analytics above for which Postgres and user).
-- `umami-app-secret` — any strong random string, e.g. `openssl rand -hex 32`
-  run on your own machine, not pasted into a chat or ticket.
+- `umami-db-password`, `umami-app-secret` — required by `docker-compose.yml`'s
+  `umami` service with no default. Compose validates the *entire* file
+  before running any command, so without these, **every** deploy fails at
+  the `docker compose` step, not just analytics.
+- `umami-script-url`, `umami-website-id` — these are `NEXT_PUBLIC_*`, so
+  they're baked into the `portfolio` image as Docker **build args**, not
+  read from any `.env` file. Get the values from Umami's dashboard → your
+  website → Tracking Code, after completing the setup above. Without them,
+  nothing fails, the tracking script is just silently left out of the
+  build (`src/app/layout.tsx` only renders it when both are present), so a
+  missing visitor count here is easy to mistake for an Umami problem when
+  it's actually this.
+
+A `.env` file created by hand on the VPS (e.g. in `~/apps/Portfolio`) is
+**not** read by Jenkins — it checks out a fresh copy of the repo on every
+run, so that file is invisible to it. All four values above must be
+Jenkins credentials for CI deploys to pick them up.
+
+Create all four as **Secret text** credentials in Jenkins (Manage Jenkins
+→ Credentials) with these exact IDs: `umami-db-password` (the password
+Umami uses to reach its Postgres database — see Analytics above for which
+Postgres and user), `umami-app-secret` (any strong random string, e.g.
+`openssl rand -hex 32` run on your own machine, not pasted into a chat or
+ticket), `umami-script-url` and `umami-website-id` (from the Tracking Code
+snippet Umami gives you).
 
 ## Contact
 
