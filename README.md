@@ -8,6 +8,7 @@ Personal portfolio site built with Next.js. It showcases my experience, skills a
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/) 3
 - [EmailJS](https://www.emailjs.com/) for the contact form
+- [Umami](https://umami.is/) (self-hosted) for visitor analytics
 - [react-icons](https://react-icons.github.io/react-icons/)
 - Docker + Jenkins for build and deployment
 
@@ -66,6 +67,47 @@ the card quietly falls back to the plain numbered cover — nothing breaks.
 for every repo — dropped because that image embeds your profile photo, so
 every card ended up showing the same picture of you.)
 
+## Analytics
+
+Visitor analytics run on [Umami](https://umami.is/), open-source and
+self-hosted via Docker alongside the site — no third-party tracker, and
+(by design) it never stores a visitor's raw IP address: the IP is used only
+in-memory to resolve country/city, then discarded. No tracking cookies
+either. See [src/app/privacy/page.tsx](src/app/privacy/page.tsx), linked
+from the footer, for what's shown to visitors.
+
+Umami's dashboard shows, per visit: page viewed, approximate country/city,
+device type, browser, OS, and referrer.
+
+**One-time setup on your VPS:**
+
+1. In `.env` (next to `docker-compose.yml`), set `UMAMI_DB_PASSWORD` (any
+   strong string) and `UMAMI_APP_SECRET` (`openssl rand -hex 32`).
+2. Point a DNS A record for `analytics.sanattudu.tech` (or whatever
+   subdomain you prefer — just also update it in the `umami` service's
+   Traefik label in `docker-compose.yml`) at your VPS.
+3. `docker compose up -d` — this brings up `umami` and `umami-db` alongside
+   the site. Traefik issues a Let's Encrypt cert for the subdomain
+   automatically, same as it does for the main site.
+4. Visit `https://analytics.<your-subdomain>` and log in with Umami's
+   default credentials (`admin` / `umami`) — **change that password
+   immediately**, it's public in Umami's own docs.
+5. Add a website in the dashboard (any name, hostname = your portfolio's
+   domain). Open its **Tracking Code** and copy the `src` and
+   `data-website-id` values into `NEXT_PUBLIC_UMAMI_SCRIPT_URL` and
+   `NEXT_PUBLIC_UMAMI_WEBSITE_ID` in `.env`.
+6. Rebuild and redeploy the portfolio image (these are `NEXT_PUBLIC_*`, so
+   they're baked in at build time — see Environment variables below).
+
+Until both `NEXT_PUBLIC_UMAMI_*` variables are set, the tracking script
+simply isn't rendered ([src/app/layout.tsx](src/app/layout.tsx)) — so local
+dev (`npm run dev`) never tracks anything, and the site works fine with
+analytics left unconfigured entirely.
+
+The Jenkins deploy stage force-recreates only the `portfolio` container on
+each run, so redeploying the site doesn't bounce the analytics dashboard or
+its database.
+
 ## Getting started
 
 Requires Node.js 20 or newer.
@@ -73,6 +115,7 @@ Requires Node.js 20 or newer.
 ```bash
 npm install
 cp .env.example .env.local   # then fill in the EmailJS values (optional)
+                              # (Umami vars only matter for the Docker/Jenkins path — see Analytics)
 npm run dev                  # http://localhost:3000
 ```
 
@@ -91,6 +134,10 @@ npm run dev                  # http://localhost:3000
 | `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID`  | EmailJS template ID            |
 | `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY`   | EmailJS public key             |
 | `GITHUB_TOKEN`                     | Optional — raises the GitHub API rate limit for the Projects section (see below) |
+| `UMAMI_DB_PASSWORD`                | Password for Umami's own Postgres database (Docker only) |
+| `UMAMI_APP_SECRET`                 | Encrypts Umami's session tokens — `openssl rand -hex 32` (Docker only) |
+| `NEXT_PUBLIC_UMAMI_SCRIPT_URL`     | Umami tracking script URL, from its dashboard (see Analytics) |
+| `NEXT_PUBLIC_UMAMI_WEBSITE_ID`     | Umami website ID, from its dashboard (see Analytics) |
 
 Get the EmailJS values from your [EmailJS](https://www.emailjs.com/) account. If they aren't set, the contact form falls back to opening the visitor's mail app.
 
@@ -107,7 +154,7 @@ cp .env.example .env            # Compose reads .env (not .env.local)
 docker compose up -d --build
 ```
 
-The app is served on host port **24817** by default (mapped to port 3000 inside the container). To use a different port, set `HOST_PORT` in `.env`. The EmailJS variables above are passed to the image as build args; `GITHUB_TOKEN` (optional) is passed as a container runtime environment variable instead, since it's only ever read server-side.
+The app is served on host port **24817** by default (mapped to port 3000 inside the container). To use a different port, set `HOST_PORT` in `.env`. The EmailJS and `NEXT_PUBLIC_UMAMI_*` variables above are passed to the image as build args, since they're inlined at build time; `GITHUB_TOKEN` (optional) is passed as a container runtime environment variable instead, since it's only ever read server-side. `docker compose up -d --build` also brings up the `umami` and `umami-db` containers alongside the site — see Analytics above for their one-time setup.
 
 ```bash
 docker compose logs -f          # follow logs
@@ -119,11 +166,11 @@ docker compose down             # stop and remove the container
 The [Jenkinsfile](Jenkinsfile) deploys to a VPS on every run:
 
 1. **Checkout** — pull the repository.
-2. **Build Image** — `docker build` the image, passing the EmailJS build args.
-3. **Deploy** — `docker compose up -d --force-recreate`.
+2. **Build Image** — `docker build` the image, passing the EmailJS and Umami build args.
+3. **Deploy** — `docker compose up -d`, then `docker compose up -d --force-recreate portfolio` so only the app container is bounced (Umami and its database are left running).
 4. **Health Check** — `curl` the deployed URL (`DEPLOY_URL`), retrying for about 30 seconds.
 
-On failure the pipeline prints `docker compose ps` and the recent container logs. To enable the contact form in deployed builds, uncomment the `environment` credentials in the Jenkinsfile and create matching credentials in Jenkins (`emailjs-service-id`, `emailjs-template-id`, `emailjs-public-key`).
+On failure the pipeline prints `docker compose ps` and the recent container logs. To enable the contact form in deployed builds, uncomment the `environment` credentials in the Jenkinsfile and create matching credentials in Jenkins (`emailjs-service-id`, `emailjs-template-id`, `emailjs-public-key`). Do the same for analytics with `umami-script-url` and `umami-website-id` once you've completed the Umami setup above.
 
 ## Contact
 

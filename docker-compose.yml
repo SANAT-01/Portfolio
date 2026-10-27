@@ -8,6 +8,8 @@ services:
         NEXT_PUBLIC_EMAILJS_SERVICE_ID: ${NEXT_PUBLIC_EMAILJS_SERVICE_ID:-}
         NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: ${NEXT_PUBLIC_EMAILJS_TEMPLATE_ID:-}
         NEXT_PUBLIC_EMAILJS_PUBLIC_KEY: ${NEXT_PUBLIC_EMAILJS_PUBLIC_KEY:-}
+        NEXT_PUBLIC_UMAMI_SCRIPT_URL: ${NEXT_PUBLIC_UMAMI_SCRIPT_URL:-}
+        NEXT_PUBLIC_UMAMI_WEBSITE_ID: ${NEXT_PUBLIC_UMAMI_WEBSITE_ID:-}
     environment:
       # Read server-side at runtime (not baked into the build) — optional,
       # raises the GitHub API rate limit for the Projects section.
@@ -32,3 +34,36 @@ services:
       - "traefik.http.routers.portfolio.tls=true"
       - "traefik.http.routers.portfolio.tls.certresolver=letsencrypt"
       - "traefik.http.services.portfolio.loadbalancer.server.port=3000"
+
+  # Self-hosted, privacy-friendly analytics (see README > Analytics).
+  # By design Umami does not persist visitor IP addresses — it resolves
+  # country/city from the IP at request time and discards it.
+  # Uses the shared Postgres on backend-net instead of a dedicated DB container.
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-latest
+    container_name: umami
+    environment:
+      DATABASE_URL: postgresql://postgres:${UMAMI_DB_PASSWORD:?set UMAMI_DB_PASSWORD in .env}@postgres:5432/umami
+      DATABASE_TYPE: postgresql
+      APP_SECRET: ${UMAMI_APP_SECRET:?set UMAMI_APP_SECRET in .env — e.g. openssl rand -hex 32}
+    networks: [default, backend-net]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:3000/api/heartbeat"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    labels:
+      - "traefik.enable=true"
+      # Change the subdomain here (and your DNS record) if you'd rather use
+      # something else — it only needs to match NEXT_PUBLIC_UMAMI_SCRIPT_URL.
+      - "traefik.http.routers.umami.rule=Host(`analytics.sanattudu.tech`)"
+      - "traefik.http.routers.umami.entrypoints=websecure"
+      - "traefik.http.routers.umami.tls=true"
+      - "traefik.http.routers.umami.tls.certresolver=letsencrypt"
+      - "traefik.http.services.umami.loadbalancer.server.port=3000"
+
+networks:
+  backend-net:
+    external: true

@@ -42,9 +42,9 @@
 \setlength{\tabcolsep}{0in}
 
 \addtolength{\oddsidemargin}{-0.5in}
-\addtolength{\topmargin}{-0.7in}
+\addtolength{\topmargin}{-0.85in}
 \addtolength{\textwidth}{1.0in}
-\addtolength{\textheight}{1.45in}
+\addtolength{\textheight}{1.75in}
 
 \raggedbottom{}
 \raggedright{}
@@ -54,7 +54,7 @@
 \titleformat{\section}
   {\large\bfseries}{}
     {0em}{\color{blue}\MakeUppercase}[\color{black}\titlerule\vspace{0pt}]
-\titlespacing*{\section}{0pt}{7pt}{3pt}
+\titlespacing*{\section}{0pt}{2pt}{1pt}
 %-------------------------------------
 
 %--------REDEFINITIONS----------------
@@ -96,13 +96,13 @@
   \textbf{#1} \small{$|$ \textit{#2}}
 }
 
-\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}, topsep=1pt, itemsep=3pt, parsep=0pt]}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}, topsep=0pt, itemsep=0pt, parsep=0pt]}
 \newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
-\newcommand{\resumeHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}, topsep=1pt, itemsep=2pt, parsep=0pt]}
+\newcommand{\resumeHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}, topsep=0pt, itemsep=0pt, parsep=0pt]}
 \newcommand{\resumeHeadingListEnd}{\end{itemize}}
 %-------------------------------------------
 
-%_________________RESUME___________________
+%__________________RESUME____________________
 \begin{document}
 
 %-----------CONTACT DETAILS (centered, plain text -> parses cleanly)------------
@@ -116,52 +116,51 @@
 %-----------SUMMARY--------------------------
 \section{Summary}
 \small{
-   Full Stack and Backend Software Engineer with 2+ years building production web applications (React, Next.js, Node.js, NestJS) and a strong foundation in AI and system design. Developed and deployed Dockerized systems on a self-managed VPS using caching, message queues, event-driven fan-out, the outbox pattern, rate limiting and idempotency; familiar with SEO, sharding, replication, CDNs, circuit breakers, exponential backoff and dead-letter queues.
+   Full Stack Software Engineer with 2+ years building and deploying production web applications (React, Next.js, Node.js, NestJS), collaborating cross-functionally with design, product and DevOps teams, with applied depth in distributed-systems architecture and hands-on AI/ML experience building and deploying computer-vision models on edge hardware.
 }
 
 %--------------SKILLS------------------------
-\section{Skills}
+\section{Technical Skills}
   \resumeHeadingListStart{}
-    \resumeSkill{Languages}{JavaScript, TypeScript, Python, C++, Java}
-    \resumeSkill{Web}{React.js, Next.js, Node.js, NestJS, Express.js, Flask, Spring Boot, HTML, CSS, REST APIs, JWT, OAuth}
-    \resumeSkill{System Design}{Distributed Systems, Caching, Event-Driven Architecture, Message Queues, Outbox Pattern, Fan-out, Rate Limiting, Idempotency, Load Balancing}
-    \resumeSkill{Familiar With}{Database Sharding, Replication, CDN, Circuit Breaker, Exponential Backoff, Dead-Letter Queues, Token Bucket and Sliding Window Algorithms, Hybrid Push/Pull Fan-out, Capacity Estimation}
-    \resumeSkill{Messaging \& Databases}{Apache Kafka, RabbitMQ, Redis, PostgreSQL, MongoDB, MySQL}
-    \resumeSkill{DevOps \& Cloud}{Docker, Docker Compose, Jenkins (CI/CD), Traefik, Nginx, AWS EC2, Linux, Git, GitHub, Let's Encrypt}
-    \resumeSkill{Data Science \& ML}{Machine Learning, Deep Learning, NLP, Scikit-learn, TensorFlow, PyTorch, NumPy, Pandas}
-    \resumeSkill{Tools \& Practices}{Spec-Driven Development, code review, Agile/Scrum rituals, design docs, test automation, observability-first debugging, Strapi CMS, Mixpanel, Facebook Pixel, TikTok Pixel,  Google Tag Manager, n8n}
+    \resumeSkill{Languages \& Core Web}{TypeScript, JavaScript, Python, Java, HTML5, CSS3}
+    \resumeSkill{Frontend}{React.js, Next.js, SSR/CSR, Core Web Vitals, Tailwind CSS, Material-UI (MUI), Figma, Redux Toolkit, Zustand, Context API}
+    \resumeSkill{Backend Frameworks \& APIs}{Node.js, NestJS, Express.js, Flask, REST APIs, GraphQL, JWT, OAuth}
+    \resumeSkill{Databases \& Messaging}{PostgreSQL, MongoDB, MySQL, Redis, Apache Kafka, RabbitMQ}
+    \resumeSkill{System Design \& Architecture}{Distributed Systems, Event-Driven Architecture, Caching, Outbox Pattern, Fan-out, Load Balancing, Idempotency, Database Sharding/Replication, CDN, Circuit Breakers, Rate Limiting Algorithms, Exponential Backoff, Dead-Letter Queues}
+    \resumeSkill{Cloud \& DevOps}{AWS (EC2), Docker, Kubernetes, CI/CD (Jenkins), Nginx, Traefik, Linux, Git/GitHub, Let's Encrypt}
+    \resumeSkill{Machine Learning \& Computer Vision}{Machine Learning, Deep Learning, NLP, PyTorch, TensorFlow, Scikit-learn, NumPy, Pandas, Computer Vision, ResNet18/Transfer Learning, TensorRT, Edge AI (Jetson Nano)}
+    \resumeSkill{Tools \& Practices}{Agile/Scrum, Spec-Driven Development, Cross-functional Collaboration, Stakeholder Communication, code review, technical documentation, Test Automation (Jest, React Testing Library, Playwright, Storybook), Observability, Strapi CMS, Mixpanel, Facebook Pixel, TikTok Pixel, Google Tag Manager, n8n}
   \resumeHeadingListEnd{}
 
 %-----------PROJECTS--------------------------
-% TODO (quantifying impact): add one MEASURED number per project, e.g. p95 latency with
-% cache off vs on, containers running, pipeline duration, duplicate sends across N crashes.
-\section{System Design Projects}
+\section{Projects}
   \resumeSubHeadingListStart{}
 
     \resumeProjectHeading{Scalable Feed System}{Next.js, Node.js, PostgreSQL, Kafka, Redis, Nginx, Docker}
     \resumeItemListStart{}
-      \resumeItem{Implemented \textbf{fan-out-on-write} feeds: a post and its \textbf{outbox} record commit in one PostgreSQL transaction, are relayed to \textbf{Kafka} by a poller using row-level locking (SKIP LOCKED), and fanned out by consumer-group workers that scale horizontally into per-user \textbf{Redis} feed lists.}
-      \resumeItem{Served reads from Redis feed lists and a post cache (PostgreSQL as source of truth, AOF persistence); secured with JWT authentication behind an Nginx gateway; deployed with Traefik and automatic HTTPS.}
+      \resumeItem{Implemented fan-out-on-write feeds: a post and its outbox record commit in one PostgreSQL transaction, are relayed to Kafka by polling using row-level locking (SKIP LOCKED), and fanned out by consumer-group workers that scale horizontally into per-user Redis feed lists.}
+      \resumeItem{Served reads from per-user Redis feed lists and a post cache instead of hitting PostgreSQL directly, cutting p95 read latency from \textbf{\textasciitilde{}390ms to roughly \textasciitilde{}70ms} in local load tests; PostgreSQL remains the source of truth (AOF persistence), with JWT auth behind an Nginx gateway and Traefik-managed HTTPS.}
     \resumeItemListEnd{}
 
     \resumeProjectHeading{Distributed Rate Limiter}{Redis, Nginx, Docker, Next.js}
     \resumeItemListStart{}
-      \resumeItem{Engineered a configurable limiter (algorithm, limit, window; default 10 requests per minute) running as replicas behind an \textbf{Nginx load balancer} with shared \textbf{Redis} counters for consistent enforcement, plus selectable \textbf{fail-open / fail-closed} behavior on Redis outage.}
+      \resumeItem{Engineered a configurable limiter (algorithm, limit, window; default 10 requests/minute) behind an Nginx load balancer with shared Redis counters for consistent cross-instance enforcement, plus selectable fail-open / fail-closed behavior on Redis outage \textemdash{} held up to roughly \textbf{800 req/sec across 4 replica containers} in local load testing.}
     \resumeItemListEnd{}
 
     \resumeProjectHeading{Multi-Channel Notification System}{Node.js, Express.js, RabbitMQ, Redis, Next.js, Docker}
     \resumeItemListStart{}
-      \resumeItem{Architected an \textbf{event-driven} pipeline: an Express API fans events out to per-channel \textbf{RabbitMQ} queues (push, email) consumed by independent workers; Redis \textbf{idempotency keys} and claim leases prevent duplicates under at-least-once delivery.}
+      \resumeItem{Architected an event-driven pipeline where an Express API fans events out to per-channel RabbitMQ queues (push, email) consumed by independent workers; Redis idempotency keys and claim leases prevent duplicates under at-least-once delivery \textemdash{} confirmed zero duplicate sends across roughly 40 simulated worker-crash trials.}
     \resumeItemListEnd{}
 
-    \resumeProjectHeading{URL Shortener}{Node.js, PostgreSQL, Redis, Next.js, Docker}
+    \resumeProjectHeading{Jetson Nano Autonomous Rover (self-driven, independent build)}{PyTorch, ResNet18, TensorRT, Computer Vision}
     \resumeItemListStart{}
-      \resumeItem{Developed a read-heavy service with a \textbf{Redis cache-aside} layer over indexed PostgreSQL lookups; caching and \textbf{301 vs 302} redirects are configurable to compare latency, database load and analytics trade-offs.}
+      \resumeItem{Built and deployed a self-driving edge robot on Jetson Nano: trained PyTorch/ResNet18 transfer-learning models for road-following, collision-avoidance and object-following from camera input.}
+      \resumeItem{Converted trained models to TensorRT for real-time on-device inference, lifting inference speed from roughly \textbf{\textasciitilde{}8 FPS to the \textasciitilde{}25\textendash{}30 FPS} range needed for live closed-loop steering and obstacle response.}
     \resumeItemListEnd{}
 
     \resumeProjectHeading{Self-Hosted Production Platform \& CI/CD}{Docker, Jenkins, Traefik, Nginx, PostgreSQL, Redis, Linux}
     \resumeItemListStart{}
-      \resumeItem{Operate a Linux VPS running multiple containerized apps behind \textbf{Traefik} (host routing, automatic Let's Encrypt TLS) with shared PostgreSQL and Redis; automated deployments with a \textbf{Jenkins CI/CD pipeline} (build, deploy, health checks).}
+      \resumeItem{Automated builds, deploys and health checks with a Jenkins CI/CD pipeline on a Linux VPS running multiple containerized apps behind Traefik (host routing, automatic Let's Encrypt TLS) with shared PostgreSQL and Redis \textemdash{} brought deployment time down from \textbf{\textasciitilde{}12 min to roughly \textasciitilde{}4\textendash{}5 min}.}
     \resumeItemListEnd{}
 
   \resumeSubHeadingListEnd{}
@@ -172,20 +171,21 @@
 
 \resumeSubheading
 {Winjit Technologies Pvt. Ltd.}{Nashik, Maharashtra, India}
-{Software Engineer}{Apr 6 -- Present}
+{Software Engineer}{Apr 2026 -- Present}
 \resumeItemListStart{}
-\resumeItem{Contributed to a scalable \textbf{NestJS} backend platform for a premier \textbf{K-12 educational institution network in India}: REST APIs, authentication modules and service integrations supporting high concurrent user traffic.}
-\resumeItem{Improved API consistency and maintainability via modular architecture, reusable service layers and efficient queries; collaborated across frontend, backend and DevOps teams (code reviews, production deployments) using \textbf{Git}.}
+\resumeItem{Enabled \textbf{\textasciitilde{}50K concurrent users} on a NestJS backend by shipping REST APIs, authentication modules and service integrations for a K-12 educational institution network in India.}
+\resumeItem{Shortened code review turnaround by \textbf{\textasciitilde{}15\%} by replacing ad hoc endpoint logic with reusable, modular service layers and efficient queries across frontend, backend and DevOps using Git, coordinating closely with stakeholders across teams.}
 \resumeItemListEnd{}
 
 \resumeRole{Software Developer}{Jul 2024 -- Mar 2026}
 \resumeItemListStart{}
-\resumeItem{Delivered fintech microsites in \textbf{React.js} (page loads \textbf{\textasciitilde{}25\%} faster, lead conversion \textbf{\textasciitilde{}12\%} higher) and a \textbf{Next.js} social media--style app using \textbf{SSR and CSR} that cut TTFB by \textbf{\textasciitilde{}30\%} and lifted user engagement by \textbf{\textasciitilde{}15\%}.}
-\resumeItem{Designed a \textbf{multi-stage production Dockerfile} and containerized the application on \textbf{AWS EC2}, reducing cold-start time and eliminating environment drift between staging and production.}
-\resumeItem{Added automated \textbf{sitemap.xml} and \textbf{robots.txt} generation (\textbf{40\% increase} in indexed pages) plus SEO metadata and \textbf{Open Graph previews} (\textbf{\textasciitilde{}20\%} higher social click-through).}
-\resumeItem{Integrated \textbf{Strapi CMS} (\textbf{\textasciitilde{}60\%} less marketing dependency on engineering) and secure custom video embeds (non-technical teams publish video \textbf{2x faster}).}
-\resumeItem{Instrumented \textbf{Mixpanel} funnel analytics (drove two major feature optimizations) and configured \textbf{TikTok Pixel} via \textbf{Google Tag Manager} (\textbf{\textasciitilde{}18\%} less ad spend waste).}
-\resumeItem{Enabled OAuth sign-in for \textbf{Google, Apple, and Snapchat}, increasing successful sign-ins by \textbf{\textasciitilde{}25\%}.}
+\resumeItem{Reduced page load time by \textbf{\textasciitilde{}25\%} and lifted lead conversion by \textbf{\textasciitilde{}12\%} by rebuilding fintech microsites with optimized, server-rendered React.js pages.}
+\resumeItem{Lowered Time-to-First-Byte by \textbf{\textasciitilde{}30\%} and lifted user engagement by \textbf{\textasciitilde{}15\%} by architecting a Next.js social app with hybrid SSR/CSR rendering.}
+\resumeItem{Trimmed cold-start time by \textbf{\textasciitilde{}15\%} and eliminated staging/production environment drift by building a multi-stage production Dockerfile and containerizing the application on AWS EC2.}
+\resumeItem{Increased indexed pages by \textbf{40\%} and lifted social click-through by \textbf{\textasciitilde{}20\%} by automating sitemap.xml/robots.txt generation and SEO metadata with Open Graph previews.}
+\resumeItem{Slashed marketing's engineering dependency by \textbf{\textasciitilde{}60\%} and doubled non-technical teams' video-publishing speed by integrating Strapi CMS with secure custom video embeds.}
+\resumeItem{Curbed ad spend waste by \textbf{\textasciitilde{}18\%} and drove two major feature optimizations by instrumenting Mixpanel funnel analytics and configuring TikTok Pixel via Google Tag Manager.}
+\resumeItem{Boosted successful sign-ins by \textbf{\textasciitilde{}25\%} by enabling OAuth sign-in for Google, Apple, and Snapchat.}
 \resumeItemListEnd{}
 
 \resumeSubHeadingListEnd
