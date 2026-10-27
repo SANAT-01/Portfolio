@@ -40,7 +40,7 @@ services:
   # country/city from the IP at request time and discards it.
   # Uses the shared Postgres on backend-net instead of a dedicated DB container.
   umami:
-    image: ghcr.io/umami-software/umami:postgresql-latest
+    image: umamisoftware/umami:latest
     container_name: umami
     environment:
       DATABASE_URL: postgresql://postgres:${UMAMI_DB_PASSWORD:?set UMAMI_DB_PASSWORD in .env}@postgres:5432/umami
