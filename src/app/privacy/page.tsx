@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { FiArrowLeft } from "react-icons/fi";
 import { profile, socials } from "@/data/portfolio";
 
@@ -10,25 +11,25 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <main className="mx-auto min-h-screen max-w-2xl px-6 py-24">
-      <a
+      <Link
         href="/"
         className="inline-flex items-center gap-2 text-sm text-slate-400 transition-colors hover:text-emerald-300"
       >
         <FiArrowLeft /> Back home
-      </a>
+      </Link>
 
       <h1 className="mt-8 text-3xl font-bold text-white sm:text-4xl">
         Privacy
       </h1>
       <p className="mt-2 text-sm text-slate-500">
-        Short version: this site uses analytics I host myself, it doesn't
-        store your IP address, and it doesn't use tracking cookies.
+        Short version: this site uses analytics I host myself, it doesn&apos;t
+        store your IP address, and it doesn&apos;t use tracking cookies.
       </p>
 
       <div className="mt-10 space-y-8 text-slate-300">
         <section>
           <h2 className="text-lg font-semibold text-white">
-            What's collected
+            What&apos;s collected
           </h2>
           <p className="mt-2 leading-relaxed">
             This site uses{" "}
@@ -50,15 +51,15 @@ export default function PrivacyPage() {
 
         <section>
           <h2 className="text-lg font-semibold text-white">
-            What isn't collected
+            What isn&apos;t collected
           </h2>
           <p className="mt-2 leading-relaxed">
-            Umami doesn't store your IP address — it's used only in the
-            moment to estimate location, then discarded. It doesn't set
-            tracking cookies, doesn't build a profile of you across visits or
-            other sites, and doesn't share data with any third party or ad
-            network. No personal or account information is collected,
-            because this site doesn't have accounts.
+            Umami doesn&apos;t store your IP address — it&apos;s used only in
+            the moment to estimate location, then discarded. It doesn&apos;t
+            set tracking cookies, doesn&apos;t build a profile of you across
+            visits or other sites, and doesn&apos;t share data with any third
+            party or ad network. No personal or account information is
+            collected, because this site doesn&apos;t have accounts.
           </p>
         </section>
 

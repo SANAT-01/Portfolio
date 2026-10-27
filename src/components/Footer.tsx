@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FiGithub, FiLinkedin, FiMail, FiArrowUp } from "react-icons/fi";
 import { socials, profile, navLinks } from "@/data/portfolio";
 
@@ -52,9 +53,9 @@ export default function Footer() {
           <p className="text-sm text-slate-500">
             © {new Date().getFullYear()} {profile.name}. Built with Next.js &
             Tailwind.{" "}
-            <a href="/privacy" className="hover:text-emerald-300 hover:underline">
+            <Link href="/privacy" className="hover:text-emerald-300 hover:underline">
               Privacy
-            </a>
+            </Link>
           </p>
           <a
             href="#home"
