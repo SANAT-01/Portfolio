@@ -40,7 +40,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={geistSans.variable}>
+    // suppressHydrationWarning: browser extensions inject attributes into
+    // <html> before React hydrates (e.g. data-redeviation-bs-uid). It only
+    // covers this element's own attributes, not its children.
+    <html lang="en" className={geistSans.variable} suppressHydrationWarning>
       <body className="font-sans antialiased">
         {children}
         {UMAMI_SCRIPT_URL && UMAMI_WEBSITE_ID && (

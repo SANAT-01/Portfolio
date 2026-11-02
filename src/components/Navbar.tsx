@@ -8,9 +8,17 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("#home");
+  const [inFilm, setInFilm] = useState(true);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => {
+      // The intro film fills the screen; keep the nav out of the way until
+      // the film has finished and the regular page begins.
+      const film = document.getElementById("film");
+      const filmEnd = film ? film.offsetTop + film.offsetHeight - window.innerHeight : 0;
+      setInFilm(window.scrollY < filmEnd);
+      setScrolled(window.scrollY > filmEnd + 20);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -44,7 +52,9 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,transform] duration-300 ${
+        inFilm && !open ? "-translate-y-full" : "translate-y-0"
+      } ${
         scrolled
           ? "border-b border-white/[0.06] bg-[#0a0f14]/75 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6)] backdrop-blur-xl"
           : "border-b border-transparent bg-transparent"
