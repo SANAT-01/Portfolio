@@ -3,35 +3,49 @@ import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 import { skills } from "@/data/portfolio";
 
-export default function Skills() {
+function Row({ items, reverse }: { items: typeof skills; reverse?: boolean }) {
+  // Duplicated once so the loop is seamless at translateX(-50%).
+  const looped = [...items, ...items];
   return (
-    <section id="skills" className="bg-[#0f161d]/40 py-24">
+    <div className="marquee">
+      <div className={`marquee-track ${reverse ? "marquee-reverse" : ""}`}>
+        {looped.map((skill, i) => (
+          <div
+            key={`${skill.name}-${i}`}
+            className="card flex shrink-0 items-center gap-3 px-5 py-3"
+          >
+            <div className="relative h-8 w-8 shrink-0">
+              <Image src={skill.icon} alt="" fill sizes="32px" className="object-contain" />
+            </div>
+            <span className="whitespace-nowrap text-sm font-medium text-slate-300">
+              {skill.name}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function Skills() {
+  const half = Math.ceil(skills.length / 2);
+  const row1 = skills.slice(0, half);
+  const row2 = skills.slice(half);
+
+  return (
+    <section id="skills" className="overflow-hidden bg-[#0f161d]/40 py-24">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading eyebrow="What I work with" title="Skills & Tools" />
-
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-          {skills.map((skill, i) => (
-            <Reveal
-              key={skill.name}
-              delay={(i % 5) * 60}
-              className="card card-hover group flex flex-col items-center gap-3 p-6"
-            >
-              <div className="relative h-12 w-12">
-                <Image
-                  src={skill.icon}
-                  alt={skill.name}
-                  fill
-                  sizes="48px"
-                  className="object-contain transition-transform duration-300 group-hover:scale-110"
-                />
-              </div>
-              <span className="text-sm font-medium text-slate-300 transition-colors group-hover:text-white">
-                {skill.name}
-              </span>
-            </Reveal>
-          ))}
-        </div>
       </div>
+
+      <Reveal className="space-y-4">
+        <Row items={row1} />
+        <Row items={row2} reverse />
+      </Reveal>
+
+      <p className="mt-6 text-center text-xs text-slate-500">
+        Hover to pause
+      </p>
     </section>
   );
 }

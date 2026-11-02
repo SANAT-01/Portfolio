@@ -7,6 +7,9 @@ type RevealProps = {
   className?: string;
   /** Stagger delay in ms for items in a sequence. */
   delay?: number;
+  /** Which side the element travels in from — "up" (default) is a subtle
+   *  nudge; "left"/"right" is a real slide, used for split layouts. */
+  direction?: "up" | "left" | "right";
   as?: keyof React.JSX.IntrinsicElements;
 };
 
@@ -18,6 +21,7 @@ export default function Reveal({
   children,
   className = "",
   delay = 0,
+  direction = "up",
   as = "div",
 }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
@@ -41,10 +45,12 @@ export default function Reveal({
   }, [visible]);
 
   const Tag = as as React.ElementType;
+  const directionClass =
+    direction === "left" ? "reveal-left" : direction === "right" ? "reveal-right" : "";
   return (
     <Tag
       ref={ref}
-      className={`reveal ${visible ? "is-visible" : ""} ${className}`}
+      className={`reveal ${directionClass} ${visible ? "is-visible" : ""} ${className}`}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}

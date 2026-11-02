@@ -114,21 +114,68 @@ body::after {
   background: #2b3a45;
 }
 
-/* Scroll-reveal: starts hidden, animates in when .is-visible is added */
+/* Scroll-reveal: starts hidden, animates in when .is-visible is added.
+   Direction variants travel further and scale in slightly, so entrances
+   read as real movement rather than a small nudge. */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(32px) scale(0.98);
   transition:
-    opacity 0.6s ease,
-    transform 0.6s ease,
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
     border-color 0.3s ease,
     background-color 0.3s ease,
     box-shadow 0.3s ease;
   will-change: opacity, transform;
 }
+.reveal.reveal-left {
+  transform: translateX(-56px) scale(0.98);
+}
+.reveal.reveal-right {
+  transform: translateX(56px) scale(0.98);
+}
 .reveal.is-visible {
   opacity: 1;
   transform: none;
+}
+
+/* Timeline connector that fills in as you scroll through the section —
+   scaleY driven by JS from the section's own scroll progress. */
+.timeline-fill {
+  transform: scaleY(0);
+  transform-origin: top;
+  will-change: transform;
+}
+
+/* Skills marquee: two rows, opposite directions, duplicated content for a
+   seamless loop, paused on hover so names can actually be read. */
+.marquee {
+  display: flex;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track {
+  display: flex;
+  flex-shrink: 0;
+  gap: 1rem;
+  animation: marquee-left 32s linear infinite;
+}
+.marquee-track.marquee-reverse {
+  animation-name: marquee-right;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee-left {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -139,6 +186,15 @@ body::after {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+  .timeline-fill {
+    transform: scaleY(1);
+  }
+  .marquee-track {
+    animation: none;
+  }
+  .marquee {
+    overflow-x: auto;
   }
   .blink-caret,
   .float-slow,

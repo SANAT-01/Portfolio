@@ -8,7 +8,7 @@ export default function About() {
       <SectionHeading eyebrow="Get to know me" title="About" />
 
       <div className="grid items-start gap-10 md:grid-cols-5">
-        <Reveal className="space-y-5 md:col-span-3">
+        <Reveal direction="left" className="space-y-5 md:col-span-3">
           <p className="text-lg leading-relaxed text-slate-300">
             {about.intro}
           </p>
@@ -20,6 +20,7 @@ export default function About() {
             <Reveal
               key={item.label}
               delay={i * 80}
+              direction="right"
               className="card card-hover p-5"
             >
               <p className="text-xs font-semibold uppercase tracking-wider text-emerald-400">

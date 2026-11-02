@@ -9,6 +9,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("#home");
   const [inFilm, setInFilm] = useState(true);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const onScroll = () => {
@@ -18,6 +19,10 @@ export default function Navbar() {
       const filmEnd = film ? film.offsetTop + film.offsetHeight - window.innerHeight : 0;
       setInFilm(window.scrollY < filmEnd);
       setScrolled(window.scrollY > filmEnd + 20);
+
+      // Site-wide scroll progress, measured across the whole page.
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -60,6 +65,14 @@ export default function Navbar() {
           : "border-b border-transparent bg-transparent"
       }`}
     >
+      {/* Whole-page scroll progress */}
+      <div className="absolute inset-x-0 bottom-0 h-[2px] bg-white/[0.04]">
+        <div
+          className="h-full origin-left bg-gradient-to-r from-emerald-400 to-teal-300"
+          style={{ transform: `scaleX(${progress})` }}
+        />
+      </div>
+
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <a href="#home" className="group text-lg font-bold text-white">
           <span className="text-emerald-400">{"<"}</span>

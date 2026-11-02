@@ -1,5 +1,6 @@
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
+import TimelineFill from "./TimelineFill";
 import { experience } from "@/data/portfolio";
 
 export default function Experience() {
@@ -8,13 +9,15 @@ export default function Experience() {
       <SectionHeading eyebrow="My journey" title="Experience & Education" />
 
       <div className="relative mx-auto max-w-3xl">
-        {/* Vertical line */}
-        <div className="absolute left-3 top-2 h-full w-px bg-gradient-to-b from-emerald-500/60 via-white/10 to-transparent md:left-1/2" />
+        {/* Static track + a fill that draws in as you scroll the section */}
+        <div className="absolute left-3 top-2 h-full w-px bg-white/10 md:left-1/2" />
+        <TimelineFill />
 
         <div className="space-y-10">
           {experience.map((item, i) => (
             <Reveal
               key={`${item.org}-${i}`}
+              direction={i % 2 === 0 ? "right" : "left"}
               className={`relative pl-12 md:w-1/2 ${
                 i % 2 === 0
                   ? "md:ml-auto md:pl-12"

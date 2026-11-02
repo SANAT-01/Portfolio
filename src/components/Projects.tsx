@@ -86,6 +86,7 @@ export default async function Projects() {
             <Reveal
               key={project.key}
               delay={(i % 3) * 90}
+              direction={i % 3 === 0 ? "left" : i % 3 === 2 ? "right" : "up"}
               className="card card-hover group flex flex-col overflow-hidden"
             >
               {/* Cover */}
