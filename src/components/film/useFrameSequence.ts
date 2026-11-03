@@ -47,8 +47,23 @@ export function useFrameSequence(name: string) {
     const base = `/frames/${name}/`;
     const decoded = frames.current;
 
+    // fetch() only rejects on network errors; a 404 would otherwise hand us
+    // an HTML error page as if it were a frame or the manifest.
+    const get = (u: string) =>
+      fetch(u).then((r) => {
+        if (!r.ok) throw new Error(`${r.status} ${u}`);
+        return r;
+      });
+
     (async () => {
-      const m: Manifest = await fetch(`${base}manifest.json`).then((r) => r.json());
+      let m: Manifest;
+      try {
+        m = await get(`${base}manifest.json`).then((r) => r.json());
+      } catch (err) {
+        console.error("Scroll film: couldn't load manifest", err);
+        if (alive) setLoaded(1);
+        return;
+      }
       if (!alive) return;
       countRef.current = m.count;
       blobs.current = new Array(m.count).fill(null);
@@ -57,13 +72,14 @@ export function useFrameSequence(name: string) {
         m.pattern.replace(/%0(\d)d/, (_, n) => String(i + 1).padStart(Number(n), "0"));
 
       let done = 0;
+      let shown = false;
       // Fetch in order with limited concurrency so early frames arrive first.
       const queue = Array.from({ length: m.count }, (_, i) => i);
       const worker = async () => {
         while (alive && queue.length) {
           const i = queue.shift()!;
           try {
-            const b = await fetch(url(i)).then((r) => r.blob());
+            const b = await get(url(i)).then((r) => r.blob());
             if (!alive) return;
             blobs.current[i] = b;
           } catch {
@@ -71,14 +87,18 @@ export function useFrameSequence(name: string) {
           }
           done++;
           setLoaded(done / m.count);
-          if (i === 0 && blobs.current[0]) {
+          // Reveal the canvas on the first frame that decodes — usually
+          // frame 0, but if that one is missing or corrupt, don't leave the
+          // film stuck on "Loading" forever.
+          if (!shown && blobs.current[i]) {
             try {
-              const f = await decodeBlob(blobs.current[0]);
+              const f = await decodeBlob(blobs.current[i]!);
               if (!alive) return releaseFrame(f);
-              frames.current.set(0, f);
+              frames.current.set(i, f);
+              shown = true;
               setReady(true);
             } catch {
-              /* retried by the draw loop */
+              /* try the next frame that arrives */
             }
           }
         }
@@ -128,13 +148,18 @@ export function useFrameSequence(name: string) {
     return null;
   }
 
-  /** progress ∈ [0,1] → draw the matching frame onto the canvas, cover-fit. */
-  function draw(canvas: HTMLCanvasElement | null, progress: number) {
-    if (!canvas || countRef.current === 0) return;
+  /**
+   * progress ∈ [0,1] → draw the matching frame onto the canvas, cover-fit.
+   * Returns true when the exact frame was drawn, false when nothing or only
+   * a nearby stand-in was (so the caller knows to try again shortly).
+   */
+  function draw(canvas: HTMLCanvasElement | null, progress: number): boolean {
+    if (!canvas || countRef.current === 0) return false;
     const i = Math.round(Math.min(1, Math.max(0, progress)) * (countRef.current - 1));
     manageWindow(i);
     const frame = nearestDecoded(i);
-    if (!frame) return;
+    if (!frame) return false;
+    const exact = frame === frames.current.get(i);
     const src = frame.img;
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -145,7 +170,7 @@ export function useFrameSequence(name: string) {
       canvas.height = ch;
     }
     const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    if (!ctx) return false;
     // Cover-fit, capped at 2.6x the contain size: on portrait phones that
     // keeps the (centered) subject large while showing ~40% of the width,
     // with the edge gradients hiding the small remaining letterbox.
@@ -175,6 +200,7 @@ export function useFrameSequence(name: string) {
       ctx.fillStyle = bottom;
       ctx.fillRect(0, y + h - band, cw, band);
     }
+    return exact;
   }
 
   return { ready, loaded, draw };

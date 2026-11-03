@@ -147,7 +147,7 @@ export const socials = {
   email: "sanat.tudu.tech@gmail.com",
 };
 
-// GitHub username the Projects section pulls starred repos from — see
+// GitHub username the Projects section pulls repos (ranked by stars) from — see
 // src/lib/github.ts.
 export const githubUsername = "SANAT-01";
 
@@ -156,9 +156,8 @@ export const githubUsername = "SANAT-01";
 // github.com/SANAT-01/Rate-Limiter. Each value is a path from /public (drop
 // the image in public/assets/projects/ first) or a full https:// URL.
 //
-// Any repo left out here falls back to GitHub's own auto-generated social
-// preview image for that repo, so every live project gets *some* photo —
-// add an entry only for repos you want a custom screenshot on.
+// Any repo left out here keeps the plain numbered cover — add an entry only
+// for repos you want a screenshot on.
 export const projectImages: Record<string, string> = {
   // "Rate-Limiter": "/assets/projects/rate-limiter.png",
 };

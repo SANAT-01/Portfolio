@@ -26,6 +26,9 @@ export default function Reveal({
 }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
+  // The stagger delay is only for the entrance. Left in place it would also
+  // delay every later hover transition (border, shadow, lift) on the card.
+  const [settled, setSettled] = useState(false);
 
   useEffect(() => {
     const node = ref.current;
@@ -51,7 +54,10 @@ export default function Reveal({
     <Tag
       ref={ref}
       className={`reveal ${directionClass} ${visible ? "is-visible" : ""} ${className}`}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      style={delay && !settled ? { transitionDelay: `${delay}ms` } : undefined}
+      onTransitionEnd={(e: React.TransitionEvent) => {
+        if (visible && e.target === e.currentTarget) setSettled(true);
+      }}
     >
       {children}
     </Tag>

@@ -118,6 +118,16 @@ export default function ScrollFilm() {
     let current = -1;
     let drawn = -1;
     let idle = 0;
+    // Whether the canvas shows the exact frame for `drawn`. Until it does,
+    // retry now and then: that frame may finish decoding after we drew its
+    // nearest neighbour. Once it does, stop — otherwise the loop would keep
+    // repainting a full-screen canvas forever, even while the visitor reads
+    // the rest of the page.
+    let exact = false;
+    const invalidate = () => {
+      exact = false;
+    };
+    window.addEventListener("resize", invalidate);
 
     const target = () => {
       const el = trackRef.current;
@@ -137,12 +147,12 @@ export default function ScrollFilm() {
       if (Math.abs(current - t) < 0.0005) current = t;
 
       const moved = Math.abs(current - drawn) > 0.0002;
-      // While idle, redraw now and then: the exact frame may have finished
-      // decoding after we drew its nearest neighbour.
-      if (!moved && ++idle % 8 === 0) drawRef.current(canvasRef.current, current);
+      if (!moved && !exact && ++idle % 8 === 0) {
+        exact = drawRef.current(canvasRef.current, current);
+      }
       if (moved) {
         idle = 0;
-        drawRef.current(canvasRef.current, current);
+        exact = drawRef.current(canvasRef.current, current);
         drawn = current;
         captionRefs.current.forEach((node, i) => {
           if (!node) return;
@@ -158,14 +168,15 @@ export default function ScrollFilm() {
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", invalidate);
+    };
   }, []);
 
-  // Draw the first frame as soon as it decodes, before any scroll.
-  useEffect(() => {
-    if (ready) draw(canvasRef.current, 0);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ready]);
+  // The loop above paints the first frame once it decodes. (It used to be
+  // drawn here at progress 0, which showed the opening frame instead of the
+  // right one when the page was reloaded part-way through the film.)
 
   return (
     <section
@@ -259,7 +270,7 @@ export default function ScrollFilm() {
             />
           </div>
         )}
-        {!ready && (
+        {!ready && loaded < 1 && (
           <p className="absolute inset-0 flex items-center justify-center text-xs uppercase tracking-[0.3em] text-slate-500">
             Loading
           </p>

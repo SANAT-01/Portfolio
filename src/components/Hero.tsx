@@ -66,8 +66,10 @@ export default function Hero() {
               <a
                 key={label}
                 href={href}
-                target="_blank"
-                rel="noopener noreferrer"
+                // mailto: in a new tab leaves a blank tab behind.
+                {...(href.startsWith("mailto:")
+                  ? {}
+                  : { target: "_blank", rel: "noopener noreferrer" })}
                 aria-label={label}
                 className="icon-btn"
               >

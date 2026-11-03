@@ -110,6 +110,8 @@ export default function Navbar() {
         {/* Mobile toggle */}
         <button
           aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
           className="text-2xl text-white md:hidden"
           onClick={() => setOpen((v) => !v)}
         >
@@ -118,7 +120,11 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile menu */}
+      {/* inert while closed: the collapsed links are still in the DOM and
+          would otherwise be reachable with Tab and by screen readers. */}
       <div
+        id="mobile-menu"
+        inert={!open}
         className={`md:hidden ${
           open ? "pointer-events-auto" : "pointer-events-none"
         }`}

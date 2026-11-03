@@ -47,6 +47,21 @@ function stripMarkdown(text: string): string {
     .trim();
 }
 
+// GitHub accepts a homepage without a scheme ("example.com"), which as an
+// href would resolve relative to this site. Add https:// and drop anything
+// that isn't http(s).
+function normalizeHomepage(raw: string | null): string | null {
+  const value = raw?.trim();
+  if (!value) return null;
+  const withScheme = /^[a-z][a-z\d+.-]*:/i.test(value) ? value : `https://${value}`;
+  try {
+    const url = new URL(withScheme);
+    return url.protocol === "http:" || url.protocol === "https:" ? url.href : null;
+  } catch {
+    return null;
+  }
+}
+
 /**
  * Fetches `username`'s public, non-fork repos from the GitHub REST API,
  * sorted by star count (ties broken by most recently pushed), and returns
@@ -101,7 +116,7 @@ export async function getTopRepos(
           ? stripMarkdown(r.description)
           : "No description provided yet.",
         htmlUrl: r.html_url,
-        homepage: r.homepage || null,
+        homepage: normalizeHomepage(r.homepage),
         stars: r.stargazers_count,
         forks: r.forks_count,
         language: r.language,
