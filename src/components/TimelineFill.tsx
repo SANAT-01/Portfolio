@@ -11,6 +11,9 @@ export default function TimelineFill() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // The inline transform set below would override the reduced-motion
+    // `scaleY(1)` in globals.css, so leave the line fully drawn instead.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let raf = 0;
 
     const update = () => {

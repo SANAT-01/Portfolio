@@ -15,7 +15,12 @@ async function decodeBlob(blob: Blob): Promise<Frame> {
     const url = URL.createObjectURL(blob);
     const img = new Image();
     img.src = url;
-    await img.decode();
+    try {
+      await img.decode();
+    } catch (err) {
+      URL.revokeObjectURL(url);
+      throw err;
+    }
     return { img, url };
   }
 }
@@ -38,12 +43,18 @@ export function useFrameSequence(name: string) {
   const blobs = useRef<(Blob | null)[]>([]);
   const frames = useRef<Map<number, Frame>>(new Map());
   const decoding = useRef<Set<number>>(new Set());
+  // Frames whose blob failed to decode — skipped instead of retried on every
+  // animation frame.
+  const failed = useRef<Set<number>>(new Set());
+  const aliveRef = useRef(true);
   const countRef = useRef(0);
   const [loaded, setLoaded] = useState(0);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     let alive = true;
+    aliveRef.current = true;
+    failed.current.clear();
     const base = `/frames/${name}/`;
     const decoded = frames.current;
 
@@ -63,7 +74,10 @@ export function useFrameSequence(name: string) {
         while (alive && queue.length) {
           const i = queue.shift()!;
           try {
-            const b = await fetch(url(i)).then((r) => r.blob());
+            const r = await fetch(url(i));
+            // A 404 would otherwise be stored as an HTML "image" blob.
+            if (!r.ok) throw new Error(`HTTP ${r.status}`);
+            const b = await r.blob();
             if (!alive) return;
             blobs.current[i] = b;
           } catch {
@@ -78,7 +92,8 @@ export function useFrameSequence(name: string) {
               frames.current.set(0, f);
               setReady(true);
             } catch {
-              /* retried by the draw loop */
+              /* decode() in the draw loop marks it failed; the canvas is
+                 revealed by the first neighbour that decodes instead */
             }
           }
         }
@@ -88,17 +103,32 @@ export function useFrameSequence(name: string) {
 
     return () => {
       alive = false;
+      aliveRef.current = false;
       decoded.forEach(releaseFrame);
       decoded.clear();
     };
   }, [name]);
 
   function decode(i: number) {
-    if (frames.current.has(i) || decoding.current.has(i) || !blobs.current[i]) return;
+    if (
+      frames.current.has(i) ||
+      decoding.current.has(i) ||
+      failed.current.has(i) ||
+      !blobs.current[i]
+    )
+      return;
     decoding.current.add(i);
     decodeBlob(blobs.current[i]!)
-      .then((f) => frames.current.set(i, f))
-      .catch(() => {})
+      .then((f) => {
+        // Unmounted while decoding: the cleanup already ran, so release
+        // here or the bitmap leaks.
+        if (!aliveRef.current) return releaseFrame(f);
+        frames.current.set(i, f);
+        // If frame 0 was missing or corrupt, show the film once any frame
+        // is available rather than leaving the canvas hidden forever.
+        setReady(true);
+      })
+      .catch(() => failed.current.add(i))
       .finally(() => decoding.current.delete(i));
   }
 

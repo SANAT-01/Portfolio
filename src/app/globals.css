@@ -138,6 +138,12 @@ body::after {
   opacity: 1;
   transform: none;
 }
+/* `.reveal.is-visible` comes after the @layer components rules and has the
+   same specificity as `.card-hover:hover`, so it would cancel the hover
+   lift on cards that are themselves Reveal elements (About, Projects). */
+.reveal.is-visible.card-hover:hover {
+  transform: translateY(-0.25rem);
+}
 
 /* Timeline connector that fills in as you scroll through the section —
    scaleY driven by JS from the section's own scroll progress. */
@@ -182,7 +188,11 @@ body::after {
   html {
     scroll-behavior: auto;
   }
-  .reveal {
+  /* List the direction variants too: `.reveal.reveal-left` outranks a
+     bare `.reveal`, so they'd otherwise stay shifted 56px off-position. */
+  .reveal,
+  .reveal.reveal-left,
+  .reveal.reveal-right {
     opacity: 1;
     transform: none;
     transition: none;
