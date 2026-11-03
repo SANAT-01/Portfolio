@@ -17,7 +17,7 @@ export default function Hero() {
     >
       <div className="mx-auto grid w-full max-w-6xl items-center gap-14 md:grid-cols-2">
         {/* Left: copy */}
-        <div className="text-center md:text-left">
+        <div className="on-film text-center md:text-left">
           <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-400/25 bg-emerald-400/[0.08] px-4 py-1.5 text-sm text-emerald-300 backdrop-blur-sm">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />

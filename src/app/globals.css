@@ -58,10 +58,50 @@ body::after {
     @apply bg-gradient-to-r from-emerald-300 via-emerald-400 to-teal-300 bg-clip-text text-transparent;
   }
 
-  /* Glassy card with a soft glow on hover */
+  /* Glassy card with a soft glow on hover. The dark base keeps card text
+     readable over the film playing behind the page. */
   .card {
-    @apply rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.05] to-white/[0.015] backdrop-blur-sm transition-all duration-300;
+    @apply rounded-2xl border border-white/[0.07] bg-[#0a0f14]/55 bg-gradient-to-b from-white/[0.05] to-white/[0.015] backdrop-blur-sm transition-all duration-300;
     box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
+  }
+
+  /* For text sitting directly on the film (headings, intro copy): a soft
+     dark halo so it stays readable over the brightest frames. Inherited,
+     so it can go on a wrapper. */
+  .on-film {
+    text-shadow:
+      0 1px 2px rgba(10, 15, 20, 0.6),
+      0 0 24px rgba(10, 15, 20, 0.85);
+  }
+
+  /* A soft dark pool behind a heading or text block, for where a shadow
+     isn't enough (small colored text over bright, similarly colored
+     frames). Opt-in, so the film stays vivid everywhere else. */
+  .film-scrim {
+    position: relative;
+    isolation: isolate;
+  }
+  .film-scrim::before {
+    content: "";
+    position: absolute;
+    /* Tall on purpose: the gradient is strongest in the middle and fades to
+       nothing at the edges, so extra height puts small eyebrow text near
+       the top inside the dark part. Sideways it stays inside the 24px page
+       gutter on phones (no sideways panning). */
+    inset: -4rem -1rem;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+      closest-side,
+      rgba(10, 15, 20, 0.72),
+      rgba(10, 15, 20, 0.4) 60%,
+      transparent
+    );
+  }
+  @media (min-width: 768px) {
+    .film-scrim::before {
+      inset: -5rem -3rem;
+    }
   }
   .card-hover:hover {
     @apply -translate-y-1 border-emerald-400/30;

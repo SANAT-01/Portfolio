@@ -43,7 +43,7 @@ export default function Skills() {
         <Row items={row2} reverse />
       </Reveal>
 
-      <p className="mt-6 text-center text-xs text-slate-500">
+      <p className="on-film mt-6 text-center text-xs text-slate-400">
         Hover to pause
       </p>
     </section>

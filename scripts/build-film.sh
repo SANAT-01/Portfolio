@@ -3,8 +3,9 @@
 #
 # Crossfades the chapters into one master film, slices it into WebP frames
 # in public/frames/film/, and prints where each chapter starts as a fraction
-# of the scroll. If those fractions change, update the caption windows in
-# src/components/film/ScrollFilm.tsx to match.
+# of the film. The film plays as the page background, one chapter per
+# section; if those fractions change, update CHAPTERS in
+# src/components/film/FilmBackground.tsx to match.
 #
 # Needs ffmpeg and Pillow. Usage:
 #   PYTHON=/path/to/python-with-pillow scripts/build-film.sh

@@ -67,7 +67,7 @@ export default async function Projects() {
           title={live ? "Top Repositories" : "Projects"}
         />
         {live && (
-          <p className="mx-auto -mt-8 mb-14 max-w-xl text-center text-sm text-slate-500">
+          <p className="on-film mx-auto -mt-8 mb-14 max-w-xl text-center text-sm text-slate-400">
             Pulled live from{" "}
             <a
               href={socials.github}
