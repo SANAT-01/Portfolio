@@ -13,9 +13,17 @@ type RevealProps = {
   as?: keyof React.JSX.IntrinsicElements;
 };
 
+/** Matches the .reveal transition duration in globals.css (0.7s) + slack. */
+const REVEAL_MS = 750;
+
 /**
  * Lightweight scroll-reveal using IntersectionObserver + CSS (no animation lib).
  * Reveals once, then stops observing.
+ *
+ * Once the entrance has finished, the reveal classes and stagger delay are
+ * dropped. Otherwise `.reveal.is-visible { transform: none }` would keep
+ * overriding hover lifts like `.card-hover:hover`, and the stagger delay
+ * would also lag every later hover transition on the element.
  */
 export default function Reveal({
   children,
@@ -26,6 +34,7 @@ export default function Reveal({
 }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
+  const [settled, setSettled] = useState(false);
 
   useEffect(() => {
     const node = ref.current;
@@ -44,14 +53,24 @@ export default function Reveal({
     return () => observer.disconnect();
   }, [visible]);
 
+  useEffect(() => {
+    if (!visible || settled) return;
+    const timer = setTimeout(() => setSettled(true), delay + REVEAL_MS);
+    return () => clearTimeout(timer);
+  }, [visible, settled, delay]);
+
   const Tag = as as React.ElementType;
   const directionClass =
     direction === "left" ? "reveal-left" : direction === "right" ? "reveal-right" : "";
   return (
     <Tag
       ref={ref}
-      className={`reveal ${directionClass} ${visible ? "is-visible" : ""} ${className}`}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      className={
+        settled
+          ? className
+          : `reveal ${directionClass} ${visible ? "is-visible" : ""} ${className}`
+      }
+      style={delay && !settled ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}
     </Tag>

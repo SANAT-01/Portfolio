@@ -41,6 +41,18 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, []);
 
+  // The mobile menu is hidden at md+, so close it if the viewport grows
+  // past that (rotation, window resize) — otherwise the scroll lock below
+  // stays on and the desktop page can't be scrolled.
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const onChange = (e: MediaQueryListEvent) => {
+      if (e.matches) setOpen(false);
+    };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
   // Lock body scroll while the mobile menu is open.
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -102,6 +114,8 @@ export default function Navbar() {
         {/* Mobile toggle */}
         <button
           aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
           className="text-2xl text-white md:hidden"
           onClick={() => setOpen((v) => !v)}
         >
@@ -110,7 +124,11 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile menu */}
+      {/* inert while closed: the collapsed links are invisible, so keep
+          them out of the Tab order and the accessibility tree. */}
       <div
+        id="mobile-menu"
+        inert={!open}
         className={`md:hidden ${
           open ? "pointer-events-auto" : "pointer-events-none"
         }`}

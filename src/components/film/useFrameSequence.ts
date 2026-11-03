@@ -48,7 +48,16 @@ export function useFrameSequence(name: string) {
     const decoded = frames.current;
 
     (async () => {
-      const m: Manifest = await fetch(`${base}manifest.json`).then((r) => r.json());
+      let m: Manifest;
+      try {
+        const res = await fetch(`${base}manifest.json`);
+        if (!res.ok) throw new Error(`manifest ${res.status}`);
+        m = await res.json();
+      } catch (err) {
+        // No film: the canvas stays transparent over the page background.
+        console.error(`Film "${name}" failed to load:`, err);
+        return;
+      }
       if (!alive) return;
       countRef.current = m.count;
       blobs.current = new Array(m.count).fill(null);
@@ -63,7 +72,9 @@ export function useFrameSequence(name: string) {
         while (alive && queue.length) {
           const i = queue.shift()!;
           try {
-            const b = await fetch(url(i)).then((r) => r.blob());
+            const r = await fetch(url(i));
+            if (!r.ok) throw new Error(`frame ${i + 1}: ${r.status}`);
+            const b = await r.blob();
             if (!alive) return;
             blobs.current[i] = b;
           } catch {
